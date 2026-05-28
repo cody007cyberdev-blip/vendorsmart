@@ -1,7 +1,7 @@
 import path from "path";
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
-import { cloudflare } from "@cloudflare/vite-plugin";
+// Cloudflare removido para build local
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -168,6 +168,13 @@ export default defineConfig(({ command }) => {
     server: {
       host: "::",
       port: 8080,
+      proxy: {
+        "/api": {
+          target: process.env.VITE_API_URL || "http://localhost:3001",
+          changeOrigin: true,
+          secure: false,
+        },
+      },
     },
     resolve: {
       alias: {
@@ -181,7 +188,7 @@ export default defineConfig(({ command }) => {
       }),
       devClientErrorLogger(),
       devServerFnErrorLogger(),
-      ...(useCloudflare ? [cloudflare({ viteEnvironment: { name: "ssr" } })] : []),
+      // Cloudflare removido
       tanstackStart(),
       viteReact(),
     ],

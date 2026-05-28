@@ -1,14 +1,16 @@
-import { useContext } from "react";
-import { DemoContext, type DemoContextValue } from "@/contexts/DemoContext";
+import { useAuth } from "@/contexts/AuthContext";
+
+export interface DemoContextValue {
+  isDemo: boolean;
+}
 
 /**
- * Convenience hook for DemoContext.
- * Throws if used outside <DemoProvider>.
+ * Adaptador: retorna isDemo baseado no estado de autenticação.
+ * Mantém compatibilidade com componentes existentes que usam useDemo.
  */
 export function useDemo(): DemoContextValue {
-  const ctx = useContext(DemoContext);
-  if (!ctx) {
-    throw new Error("useDemo must be used within a <DemoProvider>. Wrap your app in <DemoProvider>.");
-  }
-  return ctx;
+  const { isAuthenticated } = useAuth();
+  return {
+    isDemo: isAuthenticated,
+  };
 }

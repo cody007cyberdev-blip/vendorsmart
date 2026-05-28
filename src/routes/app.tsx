@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
-import { DemoBanner } from "@/components/layout/DemoBanner";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { ShortcutsHelpDialog } from "@/components/command/ShortcutsHelpDialog";
 import { PageTransition } from "@/components/shared/PageTransition";
-import { useDemo } from "@/hooks/useDemo";
-import { useRole } from "@/hooks/useRole";
+import { useAuth } from "@/contexts/AuthContext";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { canAccessRoute } from "@/lib/route-guard";
 import { toast } from "sonner";
@@ -18,31 +16,29 @@ export const Route = createFileRoute("/app")({
 });
 
 function AppLayout() {
-  const { isDemo } = useDemo();
-  const { role } = useRole();
+  const { isAuthenticated, loading, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [helpOpen, setHelpOpen] = useState(false);
 
-  // Global keyboard shortcuts
   useKeyboardShortcuts({ onHelpOpen: () => setHelpOpen(true) });
 
-  // Role-based route guard
+  // Redirecionar para login quando nao autenticado
   useEffect(() => {
-    if (isDemo && !canAccessRoute(location.pathname, role)) {
-      toast.error("You don't have permission to access that page.");
+    if (!loading && !isAuthenticated) {
+      navigate({ to: "/login", search: { redirect: location.pathname } as never });
+    }
+  }, [loading, isAuthenticated, navigate, location.pathname]);
+
+  // Guard RBAC
+  useEffect(() => {
+    if (user && !canAccessRoute(location.pathname, mapRole(user.role))) {
+      toast.error("Nao tem permissao para aceder a esta pagina.");
       navigate({ to: "/app/dashboard" });
     }
-  }, [location.pathname, role, navigate, isDemo]);
+  }, [location.pathname, user, navigate]);
 
-  // Demo guard — redirect to landing if not in demo
-  useEffect(() => {
-    if (!isDemo) {
-      navigate({ to: "/" });
-    }
-  }, [isDemo, navigate]);
-
-  if (!isDemo) {
+  if (loading || !isAuthenticated) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
         <div className="h-6 w-6 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground" />
@@ -52,7 +48,6 @@ function AppLayout() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-background">
-      <DemoBanner />
       <div className="flex flex-1 overflow-hidden">
         <aside className="hidden w-[260px] shrink-0 md:block">
           <Sidebar />
@@ -72,4 +67,12 @@ function AppLayout() {
       <ShortcutsHelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
     </div>
   );
+}
+
+// Mapeia role do backend para role do route-guard existente (admin/manager/staff/...)
+function mapRole(role: string): "admin" | "manager" | "staff" | "viewer" {
+  if (role === "admin") return "admin";
+  if (role === "manager") return "manager";
+  if (role === "vendor") return "staff";
+  return "viewer";
 }
