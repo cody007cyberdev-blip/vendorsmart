@@ -26,6 +26,9 @@ import { Route as AppDashboardRouteImport } from './routes/app.dashboard.tsx'
 import { Route as AppCatalogRouteImport } from './routes/app.catalog.tsx'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics.tsx'
 import { Route as AppAiInsightsRouteImport } from './routes/app.ai-insights.tsx'
+import { Route as DashboardVendedorPdvRouteImport } from './routes/dashboard/vendedor-pdv.tsx'
+import { Route as DashboardClienteLojaRouteImport } from './routes/dashboard/cliente-loja.tsx'
+import { Route as DashboardRouteImport } from './routes/dashboard.tsx'
 
 const VendorPanelRoute = VendorPanelRouteImport.update({
   id: '/vendor-panel',
@@ -111,6 +114,24 @@ const AppAiInsightsRoute = AppAiInsightsRouteImport.update({
   id: '/ai-insights',
   path: '/ai-insights',
   getParentRoute: () => AppRoute,
+} as any)
+
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const DashboardVendedorPdvRoute = DashboardVendedorPdvRouteImport.update({
+  id: '/vendedor-pdv',
+  path: '/vendedor-pdv',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardClienteLojaRoute = DashboardClienteLojaRouteImport.update({
+  id: '/cliente-loja',
+  path: '/cliente-loja',
+  getParentRoute: () => DashboardRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -235,6 +256,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ShopRoute: typeof ShopRoute
   VendorPanelRoute: typeof VendorPanelRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -393,12 +415,22 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+const DashboardRouteChildren = {
+  DashboardVendedorPdvRoute: DashboardVendedorPdvRoute,
+  DashboardClienteLojaRoute: DashboardClienteLojaRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
   ShopRoute: ShopRoute,
   VendorPanelRoute: VendorPanelRoute,
+  DashboardRoute: DashboardRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

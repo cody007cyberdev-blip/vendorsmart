@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useAppStore, User, Role } from "@/store/useAppStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,7 +23,43 @@ interface SearchParams {
 function LoginPage() {
   const navigate = useNavigate();
   const { login, verifyTwoFactor } = useAuth();
+  const setUser = useAppStore((state) => state.setUser);
   const search = useSearch({ from: "/login" }) as SearchParams;
+
+  const redirectByRole = (role: string) => {
+    if (search.redirect) {
+      navigate({ to: search.redirect });
+      return;
+    }
+
+    switch (role) {
+      case "admin":
+      case "manager":
+        navigate({ to: "/app/dashboard" });
+        break;
+      case "vendor":
+        navigate({ to: "/dashboard/vendedor-pdv" });
+        break;
+      case "customer":
+        navigate({ to: "/dashboard/cliente-loja" });
+        break;
+      default:
+        navigate({ to: "/app/dashboard" });
+    }
+  };
+
+  const updateStoreUser = (authUser: any) => {
+    const user: User = {
+      id: authUser.id,
+      name: authUser.name,
+      email: authUser.email,
+      role: (authUser.role === "vendor" ? "VENDEDOR" : 
+             authUser.role === "customer" ? "CLIENTE" : 
+             authUser.role.toUpperCase()) as Role
+    };
+    setUser(user);
+    return user;
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,9 +85,10 @@ function LoginPage() {
         setTwoFactorRequired(true);
         setUserId(result.userId);
         toast.info("Autenticacao de dois fatores ativada. Verifique seu email.");
-      } else {
+      } else if (result.user) {
         toast.success("Login bem-sucedido!");
-        navigate({ to: search.redirect || "/app/dashboard" });
+        const user = updateStoreUser(result.user);
+        redirectByRole(result.user.role);
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Erro ao fazer login");
@@ -68,9 +106,10 @@ function LoginPage() {
 
     setLoading(true);
     try {
-      await verifyTwoFactor(userId, twoFactorCode);
+      const user = await verifyTwoFactor(userId, twoFactorCode);
       toast.success("Autenticacao bem-sucedida!");
-      navigate({ to: search.redirect || "/app/dashboard" });
+      updateStoreUser(user);
+      redirectByRole(user.role);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Codigo invalido");
     } finally {

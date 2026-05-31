@@ -25,6 +25,8 @@ import { NotificationCenter } from "@/components/notifications/NotificationCente
 import { useDemo } from "@/hooks/useDemo";
 import { useRole } from "@/hooks/useRole";
 import { PermissionGate } from "@/hooks/usePermissions";
+import { useAppStore } from "@/store/useAppStore";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ROLE_BADGE_STYLES: Record<string, string> = {
   admin: "bg-primary/15 text-primary border-primary/20",
@@ -48,12 +50,20 @@ export function Header() {
   const { exitDemoMode } = useDemo();
   const { role } = useRole();
   const navigate = useNavigate();
+  const { logout: authLogout } = useAuth();
+  const { user, logout: storeLogout } = useAppStore();
 
-  const displayName = "Demo Admin";
+  const displayName = user?.name || "Demo Admin";
 
   const handleExit = async () => {
-    await navigate({ to: "/" });
-    exitDemoMode();
+    try {
+      await authLogout();
+      storeLogout();
+      exitDemoMode();
+      navigate({ to: "/login" });
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
   // CMD+K / Ctrl+K shortcut
@@ -118,7 +128,7 @@ export function Header() {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={handleExit}>
             <LogOut className="mr-2 h-4 w-4" />
-            Exit demo
+            Sair
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
