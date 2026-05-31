@@ -1,1 +1,38 @@
-/vendorsmart-electron
+/vendorsmart
+# Dependencies
+node_modules/
+dist/
+dist-server/
+
+# Environment
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime
+*.sqlite
+*.db
+
+# Builds
+*.exe
+*.app
+*.dmg
+*.deb
+*.rpm
+release/
+
+# Reports (mas cria a pasta)
+reports/   # <- Cria esta pasta, mas ignora os arquivos gerados grandes
+!reports/.gitkeep
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
