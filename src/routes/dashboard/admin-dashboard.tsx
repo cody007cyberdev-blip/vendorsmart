@@ -3,7 +3,7 @@ import { Users, Shield, Settings, Database, Activity, Lock } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 
-export const Route = createFileRoute("/dashboard/admin-dashboard")({
+export const Route = createFileRoute('/dashboard/admin-dashboard')({
   component: () => (
     <ProtectedRoute allowedRoles={['ADMIN']}>
       <AdminDashboard />
@@ -22,7 +22,7 @@ function AdminDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-bold">Total Utilizadores</pkCardTitle>
+            <CardTitle className="text-sm font-bold">Total Utilizadores</CardTitle>
             <Users className="h-4 w-4 text-gray-500" />
           </CardHeader>
           <CardContent>

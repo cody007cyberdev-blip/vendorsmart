@@ -161,6 +161,12 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/vendor-panel': typeof VendorPanelRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
+  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
+  '/dashboard/admin-dashboard': typeof DashboardAdminRoute
+  '/dashboard/manager-dashboard': typeof DashboardManagerRoute
+  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorRoute
   '/app/ai-insights': typeof AppAiInsightsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/catalog': typeof AppCatalogRoute
@@ -179,6 +185,12 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/vendor-panel': typeof VendorPanelRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
+  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
+  '/dashboard/admin-dashboard': typeof DashboardAdminRoute
+  '/dashboard/manager-dashboard': typeof DashboardManagerRoute
+  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorRoute
   '/app/ai-insights': typeof AppAiInsightsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/catalog': typeof AppCatalogRoute
@@ -199,6 +211,12 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/vendor-panel': typeof VendorPanelRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
+  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
+  '/dashboard/admin-dashboard': typeof DashboardAdminRoute
+  '/dashboard/manager-dashboard': typeof DashboardManagerRoute
+  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorRoute
   '/app/ai-insights': typeof AppAiInsightsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/catalog': typeof AppCatalogRoute
@@ -220,6 +238,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/shop'
     | '/vendor-panel'
+    | '/dashboard'
+    | '/dashboard/vendedor-pdv'
+    | '/dashboard/cliente-loja'
+    | '/dashboard/admin-dashboard'
+    | '/dashboard/manager-dashboard'
+    | '/dashboard/fornecedor-dashboard'
     | '/app/ai-insights'
     | '/app/analytics'
     | '/app/catalog'
@@ -238,6 +262,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/shop'
     | '/vendor-panel'
+    | '/dashboard'
+    | '/dashboard/vendedor-pdv'
+    | '/dashboard/cliente-loja'
+    | '/dashboard/admin-dashboard'
+    | '/dashboard/manager-dashboard'
+    | '/dashboard/fornecedor-dashboard'
     | '/app/ai-insights'
     | '/app/analytics'
     | '/app/catalog'
@@ -257,6 +287,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/shop'
     | '/vendor-panel'
+    | '/dashboard'
+    | '/dashboard/vendedor-pdv'
+    | '/dashboard/cliente-loja'
+    | '/dashboard/admin-dashboard'
+    | '/dashboard/manager-dashboard'
+    | '/dashboard/fornecedor-dashboard'
     | '/app/ai-insights'
     | '/app/analytics'
     | '/app/catalog'
@@ -302,6 +338,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/vendedor-pdv': {
+      id: '/vendedor-pdv'
+      path: '/vendedor-pdv'
+      fullPath: '/dashboard/vendedor-pdv'
+      preLoaderRoute: typeof DashboardVendedorPdvRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/cliente-loja': {
+      id: '/cliente-loja'
+      path: '/cliente-loja'
+      fullPath: '/dashboard/cliente-loja'
+      preLoaderRoute: typeof DashboardClienteLojaRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/admin-dashboard': {
+      id: '/admin-dashboard'
+      path: '/admin-dashboard'
+      fullPath: '/dashboard/admin-dashboard'
+      preLoaderRoute: typeof DashboardAdminRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/manager-dashboard': {
+      id: '/manager-dashboard'
+      path: '/manager-dashboard'
+      fullPath: '/dashboard/manager-dashboard'
+      preLoaderRoute: typeof DashboardManagerRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/fornecedor-dashboard': {
+      id: '/fornecedor-dashboard'
+      path: '/fornecedor-dashboard'
+      fullPath: '/dashboard/fornecedor-dashboard'
+      preLoaderRoute: typeof DashboardFornecedorRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/app': {
       id: '/app'
