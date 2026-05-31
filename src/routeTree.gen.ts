@@ -28,6 +28,9 @@ import { Route as AppAnalyticsRouteImport } from './routes/app.analytics.tsx'
 import { Route as AppAiInsightsRouteImport } from './routes/app.ai-insights.tsx'
 import { Route as DashboardVendedorPdvRouteImport } from './routes/dashboard/vendedor-pdv.tsx'
 import { Route as DashboardClienteLojaRouteImport } from './routes/dashboard/cliente-loja.tsx'
+import { Route as DashboardAdminRouteImport } from './routes/dashboard/admin-dashboard.tsx'
+import { Route as DashboardManagerRouteImport } from './routes/dashboard/manager-dashboard.tsx'
+import { Route as DashboardFornecedorRouteImport } from './routes/dashboard/fornecedor-dashboard.tsx'
 import { Route as DashboardRouteImport } from './routes/dashboard.tsx'
 
 const VendorPanelRoute = VendorPanelRouteImport.update({
@@ -131,6 +134,24 @@ const DashboardVendedorPdvRoute = DashboardVendedorPdvRouteImport.update({
 const DashboardClienteLojaRoute = DashboardClienteLojaRouteImport.update({
   id: '/cliente-loja',
   path: '/cliente-loja',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardAdminRoute = DashboardAdminRouteImport.update({
+  id: '/admin-dashboard',
+  path: '/admin-dashboard',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardManagerRoute = DashboardManagerRouteImport.update({
+  id: '/manager-dashboard',
+  path: '/manager-dashboard',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardFornecedorRoute = DashboardFornecedorRouteImport.update({
+  id: '/fornecedor-dashboard',
+  path: '/fornecedor-dashboard',
   getParentRoute: () => DashboardRoute,
 } as any)
 
@@ -418,6 +439,9 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const DashboardRouteChildren = {
   DashboardVendedorPdvRoute: DashboardVendedorPdvRoute,
   DashboardClienteLojaRoute: DashboardClienteLojaRoute,
+  DashboardAdminRoute: DashboardAdminRoute,
+  DashboardManagerRoute: DashboardManagerRoute,
+  DashboardFornecedorRoute: DashboardFornecedorRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(

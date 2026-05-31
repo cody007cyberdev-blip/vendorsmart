@@ -34,14 +34,19 @@ function LoginPage() {
 
     switch (role) {
       case "admin":
+        navigate({ to: "/dashboard/admin-dashboard" });
+        break;
       case "manager":
-        navigate({ to: "/app/dashboard" });
+        navigate({ to: "/dashboard/manager-dashboard" });
         break;
       case "vendor":
         navigate({ to: "/dashboard/vendedor-pdv" });
         break;
       case "customer":
         navigate({ to: "/dashboard/cliente-loja" });
+        break;
+      case "supplier":
+        navigate({ to: "/dashboard/fornecedor-dashboard" });
         break;
       default:
         navigate({ to: "/app/dashboard" });

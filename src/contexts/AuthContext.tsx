@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { api, type AuthUser, ApiError, type Role } from "@/lib/api-client";
+import { useAppStore } from "@/store/useAppStore";
 
 interface LoginResult {
   twoFactorRequired: boolean;
@@ -97,10 +98,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [],
   );
 
+  const storeLogout = useAppStore(state => state.logout);
   const logout = useCallback(async () => {
-    await api.post("/api/auth/logout");
-    setUser(null);
-  }, []);
+    try {
+      if (window.api) {
+        await window.api.logout();
+      } else {
+        await api.post("/api/auth/logout");
+      }
+    } catch (e) {
+      console.error("Logout error", e);
+    } finally {
+      setUser(null);
+      storeLogout();
+    }
+  }, [storeLogout]);
 
   const enableTwoFactor = useCallback(async () => {
     await api.post("/api/auth/2fa/enable");

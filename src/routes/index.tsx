@@ -42,9 +42,9 @@ export const Route = createFileRoute("/")({
 
 /* ─── Data ──────────────────────────────────────────── */
 const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Analytics", href: "#analytics" },
+  { label: "Funcionalidades", href: "#features" },
+  { label: "Soluções", href: "#solutions" },
+  { label: "Análises", href: "#analytics" },
 ];
 
 const solutions = [
@@ -179,7 +179,7 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
         {/* Logo */}
         <a href="#" className="flex items-center gap-2">
           <Package className="h-6 w-6 text-primary" />
-          <span className="text-lg font-semibold tracking-tight">Stackwise</span>
+          <span className="text-lg font-semibold tracking-tight">VendorSmart</span>
         </a>
 
         {/* Desktop nav links */}
@@ -199,14 +199,23 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
           ))}
         </div>
 
-        {/* Desktop CTA - secondary style */}
-        <button
-          type="button"
-          onClick={onTryDemo}
-          className="hidden items-center gap-2 rounded-lg border border-border bg-muted/60 px-5 py-2 text-sm font-medium text-foreground transition-all hover:bg-muted md:inline-flex"
-        >
-          Try demo
-        </button>
+        {/* Desktop CTA - Login/Signup */}
+        <div className="hidden items-center gap-4 md:flex">
+          <button
+            type="button"
+            onClick={() => navigate({ to: "/login" })}
+            className="text-sm font-bold text-gray-600 hover:text-black transition-colors"
+          >
+            Entrar
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate({ to: "/login" })}
+            className="items-center gap-2 rounded-lg bg-black px-5 py-2 text-sm font-bold text-white transition-all hover:bg-gray-800 md:inline-flex"
+          >
+            Criar Conta
+          </button>
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -349,23 +358,29 @@ function LandingPage() {
             />
           </div>
 
-          <h1 className="mt-5 text-[32px] font-semibold leading-[1.05] tracking-tight sm:text-[44px] lg:text-[52px]">
-            The inventory platform that scales your business
+          <h1 className="mt-5 text-[32px] font-black leading-[1.05] tracking-tight sm:text-[44px] lg:text-[64px] uppercase">
+            Gestão de Inventário <br /> <span className="text-gray-400">Sem Complicações</span>
           </h1>
 
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Track stock, manage suppliers, automate reorders, and keep your
-            team aligned from one powerful command center.
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg font-medium">
+            Controle stock, gira fornecedores e automatize encomendas a partir de um centro de comando inteligente e intuitivo.
           </p>
 
-          <div className="mt-8">
+          <div className="mt-8 flex gap-4">
+            <button
+              type="button"
+              onClick={() => navigate({ to: "/login" })}
+              className="group inline-flex items-center gap-2 rounded-xl bg-black px-8 py-4 text-lg font-bold text-white shadow-2xl transition-all hover:bg-gray-800"
+            >
+              Começar Agora
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </button>
             <button
               type="button"
               onClick={handleTryDemo}
-              className="group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-xl border-2 border-gray-200 bg-white px-8 py-4 text-lg font-bold text-gray-600 transition-all hover:bg-gray-50"
             >
-              Try demo
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              Ver Demo
             </button>
           </div>
         </div>

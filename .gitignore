@@ -25,8 +25,10 @@ npm-debug.log*
 *.rpm
 release/
 
-# Reports (mas cria a pasta)
-reports/   # <- Cria esta pasta, mas ignora os arquivos gerados grandes
+# Reports
+reports/
+/Relatorios/
+C:/VendorSmart/Relatorios/
 !reports/.gitkeep
 
 # Editor

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useDemo } from "@/hooks/useDemo";
 import type {
   Item,
@@ -17,13 +17,37 @@ interface QueryResult<T> {
   error: Error | null;
 }
 
+declare global {
+  interface Window {
+    api: any;
+  }
+}
+
 export function useItems(filters?: ItemFilters): QueryResult<Item[]> {
   const { isDemo, demoStore, version } = useDemo();
-  return useMemo(() => {
-    if (isDemo && demoStore) return { data: demoStore.getItems(filters), isLoading: false, error: null };
-    return { data: [] as Item[], isLoading: false, error: null };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDemo, demoStore, version, filters?.categoryId, filters?.supplierId, filters?.status, filters?.search, filters?.locationId]);
+  const [data, setData] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      if (isDemo && demoStore) {
+        setData(demoStore.getItems(filters));
+        setLoading(false);
+      } else if (window.api) {
+        try {
+          const res = await window.api.getItems(filters);
+          setData(res);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    load();
+  }, [isDemo, demoStore, version, filters]);
+
+  return { data, isLoading: loading, error: null };
 }
 
 export function useItemById(id: string): QueryResult<Item | undefined> {

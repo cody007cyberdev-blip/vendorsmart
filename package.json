@@ -131,7 +131,9 @@
       "electron/**/*",
       "server/dist/**/*",
       "server/**/*.js",
-      "!**/*.ts"
+      "!**/*.ts",
+      "!reports/**/*",
+      "!Relatorios/**/*"
     ],
     "win": {
       "target": [
