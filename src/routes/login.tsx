@@ -22,7 +22,7 @@ interface SearchParams {
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { login, verifyTwoFactor } = useAuth();
+  const { login, verifyTwoFactor, register } = useAuth();
   const setUser = useAppStore((state) => state.setUser);
   const search = useSearch({ from: "/login" }) as SearchParams;
 
@@ -208,6 +208,43 @@ function LoginPage() {
               <li>Vendor: vendor@vendorsmart.local / vendor123</li>
               <li>Customer: cliente@vendorsmart.local / customer123</li>
             </ul>
+            <div className="mt-4">
+              <Button
+                onClick={async () => {
+                  setLoading(true);
+                  try {
+                    // Register demo customer and auto-login
+                    try {
+                      await register({
+                        name: "Leonardo Fonseca",
+                        email: "cliente@vendorsmart.local",
+                        password: "customer123",
+                        role: "customer",
+                      });
+                    } catch (err) {
+                      // ignore if already exists
+                    }
+
+                    const res = await login("cliente@vendorsmart.local", "customer123");
+                    if (res.user) {
+                      toast.success("Conta cliente criada e autenticada!");
+                      const user = updateStoreUser(res.user);
+                      redirectByRole(res.user.role);
+                    } else if (res.twoFactorRequired) {
+                      toast.info("2FA requerida para o utilizador");
+                    }
+                  } catch (err) {
+                    toast.error(err instanceof Error ? err.message : "Erro ao registar");
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+                className="w-full"
+                disabled={loading}
+              >
+                Registar Cliente (demo)
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>

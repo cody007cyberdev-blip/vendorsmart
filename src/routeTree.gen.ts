@@ -8,30 +8,31 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root.tsx'
-import { Route as VendorPanelRouteImport } from './routes/vendor-panel.tsx'
-import { Route as ShopRouteImport } from './routes/shop.tsx'
-import { Route as LoginRouteImport } from './routes/login.tsx'
-import { Route as AppRouteImport } from './routes/app.tsx'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as VendorPanelRouteImport } from './routes/vendor-panel'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as RegisterUsersRouteImport } from './routes/register-users'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppIndexRouteImport } from './routes/app.index.tsx'
-import { Route as AppSuppliersRouteImport } from './routes/app.suppliers.tsx'
-import { Route as AppSettingsRouteImport } from './routes/app.settings.tsx'
-import { Route as AppRequestsRouteImport } from './routes/app.requests.tsx'
-import { Route as AppPurchaseOrdersRouteImport } from './routes/app.purchase-orders.tsx'
-import { Route as AppMovementsRouteImport } from './routes/app.movements.tsx'
-import { Route as AppLocationsRouteImport } from './routes/app.locations.tsx'
-import { Route as AppHelpRouteImport } from './routes/app.help.tsx'
-import { Route as AppDashboardRouteImport } from './routes/app.dashboard.tsx'
-import { Route as AppCatalogRouteImport } from './routes/app.catalog.tsx'
-import { Route as AppAnalyticsRouteImport } from './routes/app.analytics.tsx'
-import { Route as AppAiInsightsRouteImport } from './routes/app.ai-insights.tsx'
-import { Route as DashboardVendedorPdvRouteImport } from './routes/dashboard/vendedor-pdv.tsx'
-import { Route as DashboardClienteLojaRouteImport } from './routes/dashboard/cliente-loja.tsx'
-import { Route as DashboardAdminRouteImport } from './routes/dashboard/admin-dashboard.tsx'
-import { Route as DashboardManagerRouteImport } from './routes/dashboard/manager-dashboard.tsx'
-import { Route as DashboardFornecedorRouteImport } from './routes/dashboard/fornecedor-dashboard.tsx'
-import { Route as DashboardRouteImport } from './routes/dashboard.tsx'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as DashboardVendedorPdvRouteImport } from './routes/dashboard/vendedor-pdv'
+import { Route as DashboardManagerDashboardRouteImport } from './routes/dashboard/manager-dashboard'
+import { Route as DashboardFornecedorDashboardRouteImport } from './routes/dashboard/fornecedor-dashboard'
+import { Route as DashboardClienteLojaRouteImport } from './routes/dashboard/cliente-loja'
+import { Route as DashboardAdminDashboardRouteImport } from './routes/dashboard/admin-dashboard'
+import { Route as AppSuppliersRouteImport } from './routes/app.suppliers'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppRequestsRouteImport } from './routes/app.requests'
+import { Route as AppPurchaseOrdersRouteImport } from './routes/app.purchase-orders'
+import { Route as AppMovementsRouteImport } from './routes/app.movements'
+import { Route as AppLocationsRouteImport } from './routes/app.locations'
+import { Route as AppHelpRouteImport } from './routes/app.help'
+import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppCatalogRouteImport } from './routes/app.catalog'
+import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
+import { Route as AppAiInsightsRouteImport } from './routes/app.ai-insights'
 
 const VendorPanelRoute = VendorPanelRouteImport.update({
   id: '/vendor-panel',
@@ -43,9 +44,19 @@ const ShopRoute = ShopRouteImport.update({
   path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegisterUsersRoute = RegisterUsersRouteImport.update({
+  id: '/register-users',
+  path: '/register-users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
@@ -62,6 +73,33 @@ const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRoute,
+} as any)
+const DashboardVendedorPdvRoute = DashboardVendedorPdvRouteImport.update({
+  id: '/vendedor-pdv',
+  path: '/vendedor-pdv',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardManagerDashboardRoute =
+  DashboardManagerDashboardRouteImport.update({
+    id: '/manager-dashboard',
+    path: '/manager-dashboard',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+const DashboardFornecedorDashboardRoute =
+  DashboardFornecedorDashboardRouteImport.update({
+    id: '/fornecedor-dashboard',
+    path: '/fornecedor-dashboard',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+const DashboardClienteLojaRoute = DashboardClienteLojaRouteImport.update({
+  id: '/cliente-loja',
+  path: '/cliente-loja',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAdminDashboardRoute = DashboardAdminDashboardRouteImport.update({
+  id: '/admin-dashboard',
+  path: '/admin-dashboard',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const AppSuppliersRoute = AppSuppliersRouteImport.update({
   id: '/suppliers',
@@ -119,54 +157,14 @@ const AppAiInsightsRoute = AppAiInsightsRouteImport.update({
   getParentRoute: () => AppRoute,
 } as any)
 
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const DashboardVendedorPdvRoute = DashboardVendedorPdvRouteImport.update({
-  id: '/vendedor-pdv',
-  path: '/vendedor-pdv',
-  getParentRoute: () => DashboardRoute,
-} as any)
-
-const DashboardClienteLojaRoute = DashboardClienteLojaRouteImport.update({
-  id: '/cliente-loja',
-  path: '/cliente-loja',
-  getParentRoute: () => DashboardRoute,
-} as any)
-
-const DashboardAdminRoute = DashboardAdminRouteImport.update({
-  id: '/admin-dashboard',
-  path: '/admin-dashboard',
-  getParentRoute: () => DashboardRoute,
-} as any)
-
-const DashboardManagerRoute = DashboardManagerRouteImport.update({
-  id: '/manager-dashboard',
-  path: '/manager-dashboard',
-  getParentRoute: () => DashboardRoute,
-} as any)
-
-const DashboardFornecedorRoute = DashboardFornecedorRouteImport.update({
-  id: '/fornecedor-dashboard',
-  path: '/fornecedor-dashboard',
-  getParentRoute: () => DashboardRoute,
-} as any)
-
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
+  '/register-users': typeof RegisterUsersRoute
   '/shop': typeof ShopRoute
   '/vendor-panel': typeof VendorPanelRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
-  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
-  '/dashboard/admin-dashboard': typeof DashboardAdminRoute
-  '/dashboard/manager-dashboard': typeof DashboardManagerRoute
-  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorRoute
   '/app/ai-insights': typeof AppAiInsightsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/catalog': typeof AppCatalogRoute
@@ -178,19 +176,20 @@ export interface FileRoutesByFullPath {
   '/app/requests': typeof AppRequestsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/suppliers': typeof AppSuppliersRoute
+  '/dashboard/admin-dashboard': typeof DashboardAdminDashboardRoute
+  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
+  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorDashboardRoute
+  '/dashboard/manager-dashboard': typeof DashboardManagerDashboardRoute
+  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
+  '/register-users': typeof RegisterUsersRoute
   '/shop': typeof ShopRoute
   '/vendor-panel': typeof VendorPanelRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
-  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
-  '/dashboard/admin-dashboard': typeof DashboardAdminRoute
-  '/dashboard/manager-dashboard': typeof DashboardManagerRoute
-  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorRoute
   '/app/ai-insights': typeof AppAiInsightsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/catalog': typeof AppCatalogRoute
@@ -202,21 +201,22 @@ export interface FileRoutesByTo {
   '/app/requests': typeof AppRequestsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/suppliers': typeof AppSuppliersRoute
+  '/dashboard/admin-dashboard': typeof DashboardAdminDashboardRoute
+  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
+  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorDashboardRoute
+  '/dashboard/manager-dashboard': typeof DashboardManagerDashboardRoute
+  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
+  '/register-users': typeof RegisterUsersRoute
   '/shop': typeof ShopRoute
   '/vendor-panel': typeof VendorPanelRoute
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
-  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
-  '/dashboard/admin-dashboard': typeof DashboardAdminRoute
-  '/dashboard/manager-dashboard': typeof DashboardManagerRoute
-  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorRoute
   '/app/ai-insights': typeof AppAiInsightsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/catalog': typeof AppCatalogRoute
@@ -228,6 +228,11 @@ export interface FileRoutesById {
   '/app/requests': typeof AppRequestsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/suppliers': typeof AppSuppliersRoute
+  '/dashboard/admin-dashboard': typeof DashboardAdminDashboardRoute
+  '/dashboard/cliente-loja': typeof DashboardClienteLojaRoute
+  '/dashboard/fornecedor-dashboard': typeof DashboardFornecedorDashboardRoute
+  '/dashboard/manager-dashboard': typeof DashboardManagerDashboardRoute
+  '/dashboard/vendedor-pdv': typeof DashboardVendedorPdvRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
@@ -235,15 +240,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/dashboard'
     | '/login'
+    | '/register-users'
     | '/shop'
     | '/vendor-panel'
-    | '/dashboard'
-    | '/dashboard/vendedor-pdv'
-    | '/dashboard/cliente-loja'
-    | '/dashboard/admin-dashboard'
-    | '/dashboard/manager-dashboard'
-    | '/dashboard/fornecedor-dashboard'
     | '/app/ai-insights'
     | '/app/analytics'
     | '/app/catalog'
@@ -255,19 +256,20 @@ export interface FileRouteTypes {
     | '/app/requests'
     | '/app/settings'
     | '/app/suppliers'
+    | '/dashboard/admin-dashboard'
+    | '/dashboard/cliente-loja'
+    | '/dashboard/fornecedor-dashboard'
+    | '/dashboard/manager-dashboard'
+    | '/dashboard/vendedor-pdv'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/dashboard'
     | '/login'
+    | '/register-users'
     | '/shop'
     | '/vendor-panel'
-    | '/dashboard'
-    | '/dashboard/vendedor-pdv'
-    | '/dashboard/cliente-loja'
-    | '/dashboard/admin-dashboard'
-    | '/dashboard/manager-dashboard'
-    | '/dashboard/fornecedor-dashboard'
     | '/app/ai-insights'
     | '/app/analytics'
     | '/app/catalog'
@@ -279,20 +281,21 @@ export interface FileRouteTypes {
     | '/app/requests'
     | '/app/settings'
     | '/app/suppliers'
+    | '/dashboard/admin-dashboard'
+    | '/dashboard/cliente-loja'
+    | '/dashboard/fornecedor-dashboard'
+    | '/dashboard/manager-dashboard'
+    | '/dashboard/vendedor-pdv'
     | '/app'
   id:
     | '__root__'
     | '/'
     | '/app'
+    | '/dashboard'
     | '/login'
+    | '/register-users'
     | '/shop'
     | '/vendor-panel'
-    | '/dashboard'
-    | '/dashboard/vendedor-pdv'
-    | '/dashboard/cliente-loja'
-    | '/dashboard/admin-dashboard'
-    | '/dashboard/manager-dashboard'
-    | '/dashboard/fornecedor-dashboard'
     | '/app/ai-insights'
     | '/app/analytics'
     | '/app/catalog'
@@ -304,16 +307,22 @@ export interface FileRouteTypes {
     | '/app/requests'
     | '/app/settings'
     | '/app/suppliers'
+    | '/dashboard/admin-dashboard'
+    | '/dashboard/cliente-loja'
+    | '/dashboard/fornecedor-dashboard'
+    | '/dashboard/manager-dashboard'
+    | '/dashboard/vendedor-pdv'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  DashboardRoute: typeof DashboardRouteWithChildren
   LoginRoute: typeof LoginRoute
+  RegisterUsersRoute: typeof RegisterUsersRoute
   ShopRoute: typeof ShopRoute
   VendorPanelRoute: typeof VendorPanelRoute
-  DashboardRoute: typeof DashboardRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -332,6 +341,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/register-users': {
+      id: '/register-users'
+      path: '/register-users'
+      fullPath: '/register-users'
+      preLoaderRoute: typeof RegisterUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -345,41 +361,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/vendedor-pdv': {
-      id: '/vendedor-pdv'
-      path: '/vendedor-pdv'
-      fullPath: '/dashboard/vendedor-pdv'
-      preLoaderRoute: typeof DashboardVendedorPdvRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/cliente-loja': {
-      id: '/cliente-loja'
-      path: '/cliente-loja'
-      fullPath: '/dashboard/cliente-loja'
-      preLoaderRoute: typeof DashboardClienteLojaRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/admin-dashboard': {
-      id: '/admin-dashboard'
-      path: '/admin-dashboard'
-      fullPath: '/dashboard/admin-dashboard'
-      preLoaderRoute: typeof DashboardAdminRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/manager-dashboard': {
-      id: '/manager-dashboard'
-      path: '/manager-dashboard'
-      fullPath: '/dashboard/manager-dashboard'
-      preLoaderRoute: typeof DashboardManagerRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/fornecedor-dashboard': {
-      id: '/fornecedor-dashboard'
-      path: '/fornecedor-dashboard'
-      fullPath: '/dashboard/fornecedor-dashboard'
-      preLoaderRoute: typeof DashboardFornecedorRouteImport
-      parentRoute: typeof DashboardRoute
     }
     '/app': {
       id: '/app'
@@ -401,6 +382,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/dashboard/vendedor-pdv': {
+      id: '/dashboard/vendedor-pdv'
+      path: '/vendedor-pdv'
+      fullPath: '/dashboard/vendedor-pdv'
+      preLoaderRoute: typeof DashboardVendedorPdvRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/manager-dashboard': {
+      id: '/dashboard/manager-dashboard'
+      path: '/manager-dashboard'
+      fullPath: '/dashboard/manager-dashboard'
+      preLoaderRoute: typeof DashboardManagerDashboardRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/fornecedor-dashboard': {
+      id: '/dashboard/fornecedor-dashboard'
+      path: '/fornecedor-dashboard'
+      fullPath: '/dashboard/fornecedor-dashboard'
+      preLoaderRoute: typeof DashboardFornecedorDashboardRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/cliente-loja': {
+      id: '/dashboard/cliente-loja'
+      path: '/cliente-loja'
+      fullPath: '/dashboard/cliente-loja'
+      preLoaderRoute: typeof DashboardClienteLojaRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/admin-dashboard': {
+      id: '/dashboard/admin-dashboard'
+      path: '/admin-dashboard'
+      fullPath: '/dashboard/admin-dashboard'
+      preLoaderRoute: typeof DashboardAdminDashboardRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/app/suppliers': {
       id: '/app/suppliers'
@@ -514,12 +530,20 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
-const DashboardRouteChildren = {
-  DashboardVendedorPdvRoute: DashboardVendedorPdvRoute,
+interface DashboardRouteChildren {
+  DashboardAdminDashboardRoute: typeof DashboardAdminDashboardRoute
+  DashboardClienteLojaRoute: typeof DashboardClienteLojaRoute
+  DashboardFornecedorDashboardRoute: typeof DashboardFornecedorDashboardRoute
+  DashboardManagerDashboardRoute: typeof DashboardManagerDashboardRoute
+  DashboardVendedorPdvRoute: typeof DashboardVendedorPdvRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAdminDashboardRoute: DashboardAdminDashboardRoute,
   DashboardClienteLojaRoute: DashboardClienteLojaRoute,
-  DashboardAdminRoute: DashboardAdminRoute,
-  DashboardManagerRoute: DashboardManagerRoute,
-  DashboardFornecedorRoute: DashboardFornecedorRoute,
+  DashboardFornecedorDashboardRoute: DashboardFornecedorDashboardRoute,
+  DashboardManagerDashboardRoute: DashboardManagerDashboardRoute,
+  DashboardVendedorPdvRoute: DashboardVendedorPdvRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
@@ -529,10 +553,11 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  DashboardRoute: DashboardRouteWithChildren,
   LoginRoute: LoginRoute,
+  RegisterUsersRoute: RegisterUsersRoute,
   ShopRoute: ShopRoute,
   VendorPanelRoute: VendorPanelRoute,
-  DashboardRoute: DashboardRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -30,7 +30,7 @@ async function seed() {
   await db.insert(schema.users).values([
     {
       id: adminId,
-      name: "Administrador",
+      name: "Leonardo Fonseca",
       email: "admin@vendorsmart.local",
       passwordHash,
       role: "admin",
@@ -38,21 +38,21 @@ async function seed() {
     },
     {
       id: managerId,
-      name: "Gestor",
+      name: "Leonardo Fonseca",
       email: "manager@vendorsmart.local",
       passwordHash: managerHash,
       role: "manager",
     },
     {
       id: vendorId,
-      name: "Vendedor",
+      name: "Leonardo Fonseca",
       email: "vendor@vendorsmart.local",
       passwordHash: vendorHash,
       role: "vendor",
     },
     {
       id: customerId,
-      name: "Cliente",
+      name: "Leonardo Fonseca",
       email: "cliente@vendorsmart.local",
       passwordHash: customerHash,
       role: "customer",
