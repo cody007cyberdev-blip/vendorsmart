@@ -71,10 +71,10 @@ function AppLayout() {
   );
 }
 
-// Mapeia role do backend para role do route-guard existente (admin/manager/staff/...)
-function mapRole(role: string): "admin" | "manager" | "staff" | "viewer" {
-  if (role === "admin") return "admin";
-  if (role === "manager") return "manager";
-  if (role === "vendor") return "staff";
-  return "viewer";
+// Mapeia role do frontend para o modelo de RBAC usado pelo route guard
+function mapRole(role: string): "admin" | "manager" | "requestor" {
+  const normalized = role.toLowerCase();
+  if (normalized === "admin") return "admin";
+  if (normalized === "manager") return "manager";
+  return "requestor";
 }
