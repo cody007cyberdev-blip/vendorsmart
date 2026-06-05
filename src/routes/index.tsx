@@ -24,17 +24,17 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
   head: () => ({
     meta: [
-      { title: "Stackwise — Inventory Command Center" },
+      { title: "VendorSmart — Centro de Comando de Inventário" },
       {
         name: "description",
         content:
-          "Real-time inventory management for businesses of any size. Track stock, manage suppliers, automate reorders, and keep your team aligned.",
+          "Gestão de inventário em tempo real para empresas de qualquer dimensão. Rastreie stock, gira fornecedores, automatize reabastecimentos e mantenha a sua equipa alinhada.",
       },
-      { property: "og:title", content: "Stackwise — Inventory Command Center" },
+      { property: "og:title", content: "VendorSmart — Centro de Comando de Inventário" },
       {
         property: "og:description",
         content:
-          "Real-time inventory management for businesses of any size. Track stock, manage suppliers, automate reorders, and keep your team aligned.",
+          "Gestão de inventário em tempo real para empresas de qualquer dimensão. Rastreie stock, gira fornecedores, automatize reabastecimentos e mantenha a sua equipa alinhada."
       },
     ],
   }),
@@ -50,44 +50,44 @@ const navLinks = [
 const solutions = [
   {
     icon: BarChart3,
-    title: "Real-time tracking",
-    description: "Monitor stock levels across every location with live dashboards and instant status updates.",
+    title: "Rastreamento em tempo real",
+    description: "Monitorize os níveis de stock em todas as localizações com dashboards em tempo real e atualizações de estado instantâneas."
     color: "bg-primary/10 text-primary",
   },
   {
     icon: Bell,
-    title: "Smart reorders",
-    description: "Automated thresholds and AI-powered forecasting prevent stockouts before they happen.",
+    title: "Reabastecimentos inteligentes",
+    description: "Limiares automatizados e previsão impulsionada por IA previnem rupturas de stock antes que aconteçam."
     color: "bg-secondary/10 text-secondary",
   },
   {
     icon: Truck,
-    title: "Supplier management",
-    description: "Unified view of contacts, lead times, purchase history, and performance scoring.",
+    title: "Gestão de fornecedores",
+    description: "Visão unificada de contactos, prazos de entrega, histórico de compras e pontuação de desempenho."
     color: "bg-accent/20 text-accent-foreground",
   },
   {
     icon: TrendingUp,
-    title: "Analytics & reports",
-    description: "Turn movement data into insights with trend charts, turnover analysis, and exports.",
+    title: "Análises e relatórios",
+    description: "Transforme dados de movimentação em insights com gráficos de tendências, análise de rotatividade e exportações."
     color: "bg-primary/10 text-primary",
   },
 ];
 
 const featureTabs = [
   {
-    label: "Dashboard",
-    description: "See what matters most: stock levels, pending orders, recent movements, and alerts that need attention.",
+    label: "Painel",
+    description: "Veja o que mais importa: níveis de stock, pedidos pendentes, movimentações recentes e alertas que precisam de atenção."
     image: uiScreenshot.url,
   },
   {
-    label: "Catalog",
-    description: "Powerful search, filters, bulk actions, and custom fields let you manage hundreds of SKUs effortlessly.",
+    label: "Catálogo",
+    description: "Pesquisa poderosa, filtros, ações em massa e campos personalizados permitem gerir centenas de SKUs sem esforço."
     image: uiScreenshot.url,
   },
   {
-    label: "Analytics",
-    description: "From stock trends to supplier performance, turn raw data into actionable insights and forecasts.",
+    label: "Análises",
+    description: "De tendências de stock a desempenho de fornecedores, transforme dados brutos em insights acionáveis e previsões."
     image: uiScreenshot.url,
   },
 ];
@@ -95,41 +95,41 @@ const featureTabs = [
 const features = [
   {
     icon: BarChart3,
-    title: "Real-time tracking",
-    description: "Monitor stock levels across every location as changes happen, with instant dashboards and live status indicators.",
+    title: "Rastreamento em tempo real",
+    description: "Monitorize os níveis de stock em todas as localizações à medida que as mudanças acontecem, com dashboards instantâneos e indicadores de estado em tempo real."
   },
   {
     icon: Bell,
-    title: "Smart reorder alerts",
-    description: "Get notified before you run out. Automated thresholds and AI-powered forecasting keep shelves stocked.",
+    title: "Alertas de reabastecimento inteligentes",
+    description: "Seja notificado antes que o stock acabe. Limiares automatizados e previsão impulsionada por IA mantêm as prateleiras abastecidas."
   },
   {
     icon: Truck,
-    title: "Supplier management",
-    description: "Organize contacts, lead times, and purchase history in one unified view with performance scoring.",
+    title: "Gestão de fornecedores",
+    description: "Organize contactos, prazos de entrega e histórico de compras numa visão unificada com pontuação de desempenho."
   },
   {
     icon: ScanLine,
-    title: "Barcode scanning",
-    description: "Speed up receiving and cycle counts with built-in barcode support and quick-entry mode.",
+    title: "Leitura de códigos de barras",
+    description: "Acelere o recebimento e as contagens cíclicas com suporte a código de barras integrado e modo de entrada rápida."
   },
   {
     icon: TrendingUp,
-    title: "Analytics & reports",
-    description: "Turn movement data into insights with trend charts, turnover analysis, and exportable reports.",
+    title: "Análises e relatórios",
+    description: "Transforme dados de movimentação em insights com gráficos de tendências, análise de rotatividade e relatórios exportáveis."
   },
   {
     icon: Users,
-    title: "Team roles & permissions",
-    description: "Control who can view, edit, or approve with granular role-based access and approval workflows.",
+    title: "Funções e permissões da equipa",
+    description: "Controle quem pode visualizar, editar ou aprovar com acesso granular baseado em funções e fluxos de trabalho de aprovação."
   },
 ];
 
 const capabilities = [
-  { icon: Shield, text: "Role-based access" },
-  { icon: Globe, text: "Multi-location support" },
-  { icon: ScanLine, text: "Barcode ready" },
-  { icon: Zap, text: "AI-powered insights" },
+  { icon: Shield, text: "Acesso baseado em funções" },
+  { icon: Globe, text: "Suporte a múltiplas localizações" },
+  { icon: ScanLine, text: "Pronto para código de barras" },
+  { icon: Zap, text: "Insights impulsionados por IA" },
 ];
 
 /* ─── Components ────────────────────────────────────── */
@@ -223,7 +223,7 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden p-2 text-foreground"
-          aria-label="Toggle menu"
+          aria-label="Alternar menu"
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -254,7 +254,7 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
             }}
             className="mt-2 w-full rounded-lg border border-border bg-muted/60 px-5 py-2.5 text-sm font-medium text-foreground"
           >
-            Try demo
+            Experimentar demonstração
           </button>
         </div>
       )}
@@ -282,13 +282,13 @@ function FeatureTabsSection() {
     <section id="analytics" className="px-4 py-20 sm:py-28">
       <RevealSection className="text-center">
         <span className="inline-block rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-          Product tour
+          Tour do produto
         </span>
         <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-          Drive your business forward
+          Impulsione o seu negócio
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
-          Explore the modules that give you complete control over your supply chain.
+          Explore os módulos que lhe dão controlo total sobre a sua cadeia de suprimentos.
         </p>
       </RevealSection>
 
@@ -321,7 +321,7 @@ function FeatureTabsSection() {
           <BrowserFrame>
             <img
               src={featureTabs[activeTab].image}
-              alt={`Stackwise ${featureTabs[activeTab].label} view`}
+              alt={`VendorSmart ${featureTabs[activeTab].label} vista`}
               className="w-full transition-opacity duration-300"
             />
           </BrowserFrame>
@@ -354,7 +354,7 @@ function LandingPage() {
           <div className="animate-fade-in" style={{ animationDelay: "200ms", animationFillMode: "backwards" }}>
             <img
               src={heroBox3d}
-              alt="3D illustration of a cardboard box"
+              alt="Ilustração 3D de uma caixa de cartão"
               className="mx-auto w-48 drop-shadow-xl sm:w-56"
             />
           </div>
@@ -387,17 +387,17 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* ── Solutions Grid ─────────────────────────────── */}
+      {/* ── Soluções Grid ─────────────────────────────── */}
       <section id="solutions" className="rounded-none bg-muted/50 px-4 py-20 sm:py-28">
         <RevealSection className="text-center">
           <span className="inline-block rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-            Solutions
+            Soluções
           </span>
           <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
-            Built for modern inventory teams
+            Construído para equipas de inventário modernas
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
-            Four powerful modules working together to give you complete visibility and control.
+            Quatro módulos poderosos a trabalhar em conjunto para lhe dar visibilidade e controlo completos.
           </p>
         </RevealSection>
 
@@ -423,7 +423,7 @@ function LandingPage() {
             <BrowserFrame className="shadow-2xl shadow-primary/5">
               <img
                 src={uiScreenshot.url}
-                alt="Stackwise dashboard showing inventory metrics, stock levels chart, and recent activity"
+                alt="Painel do VendorSmart mostrando métricas de inventário, gráfico de níveis de stock e atividade recente"
                 className="w-full"
                 loading="lazy"
               />
@@ -439,10 +439,10 @@ function LandingPage() {
       <section id="features" className="px-4 py-20 sm:py-28">
         <RevealSection className="text-center">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Everything you need to manage inventory
+            Tudo o que precisa para gerir o inventário
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
-            Six powerful modules working together to give you complete control over your supply chain.
+            Seis módulos poderosos a trabalhar em conjunto para lhe dar controlo total sobre a sua cadeia de suprimentos.
           </p>
         </RevealSection>
 
@@ -486,10 +486,10 @@ function LandingPage() {
           <RevealSection>
             <img src={heroBox3d} alt="" className="mx-auto mb-6 h-16 w-16 object-contain" />
             <h2 className="text-2xl font-semibold tracking-tight text-background sm:text-3xl lg:text-4xl">
-              Ready to take control of your inventory?
+              Pronto para assumir o controlo do seu inventário?
             </h2>
             <p className="mx-auto mt-4 max-w-md text-base text-background/60">
-              Explore Stackwise with sample data. No signup required.
+              Explore o VendorSmart com dados de exemplo. Não é necessário registo.
             </p>
             <div className="mt-8">
               <button
@@ -497,7 +497,7 @@ function LandingPage() {
                 onClick={handleTryDemo}
                 className="group inline-flex items-center gap-2 rounded-lg bg-background px-5 py-2.5 text-base font-semibold text-foreground shadow-lg transition-all hover:bg-background/90"
               >
-                Try demo
+                Experimentar demonstração
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
@@ -509,7 +509,7 @@ function LandingPage() {
       <footer className="border-t border-border px-4 py-10 text-center">
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Package className="h-4 w-4 text-primary" />
-          <span>Built with Stackwise · {new Date().getFullYear()}</span>
+          <span>Construído com VendorSmart · {new Date().getFullYear()}</span>
         </div>
       </footer>
     </div>

@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (err instanceof ApiError && err.status === 401) {
         setUser(null);
       } else {
-        console.error("[auth] refresh falhou:", err);
+        console.error("[auth] a atualização falhou:", err);
       }
     } finally {
       setLoading(false);
@@ -107,7 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await api.post("/api/auth/logout");
       }
     } catch (e) {
-      console.error("Logout error", e);
+      console.error("Erro ao fazer logout", e);
     } finally {
       setUser(null);
       storeLogout();
@@ -156,6 +156,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth deve ser usado dentro de AuthProvider");
+  if (!ctx) throw new Error("useAuth deve ser usado dentro de um AuthProvider");
   return ctx;
 }
