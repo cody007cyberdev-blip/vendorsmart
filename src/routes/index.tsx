@@ -51,25 +51,25 @@ const solutions = [
   {
     icon: BarChart3,
     title: "Rastreamento em tempo real",
-    description: "Monitorize os níveis de stock em todas as localizações com dashboards em tempo real e atualizações de estado instantâneas."
+    description: "Monitorize os níveis de stock em todas as localizações com dashboards em tempo real e atualizações de estado instantâneas.",
     color: "bg-primary/10 text-primary",
   },
   {
     icon: Bell,
     title: "Reabastecimentos inteligentes",
-    description: "Limiares automatizados e previsão impulsionada por IA previnem rupturas de stock antes que aconteçam."
+    description: "Limiares automatizados e previsão impulsionada por IA previnem rupturas de stock antes que aconteçam.",
     color: "bg-secondary/10 text-secondary",
   },
   {
     icon: Truck,
     title: "Gestão de fornecedores",
-    description: "Visão unificada de contactos, prazos de entrega, histórico de compras e pontuação de desempenho."
+    description: "Visão unificada de contactos, prazos de entrega, histórico de compras e pontuação de desempenho.",
     color: "bg-accent/20 text-accent-foreground",
   },
   {
     icon: TrendingUp,
     title: "Análises e relatórios",
-    description: "Transforme dados de movimentação em insights com gráficos de tendências, análise de rotatividade e exportações."
+    description: "Transforme dados de movimentação em insights com gráficos de tendências, análise de rotatividade e exportações.",
     color: "bg-primary/10 text-primary",
   },
 ];
@@ -77,17 +77,17 @@ const solutions = [
 const featureTabs = [
   {
     label: "Painel",
-    description: "Veja o que mais importa: níveis de stock, pedidos pendentes, movimentações recentes e alertas que precisam de atenção."
+    description: "Veja o que mais importa: níveis de stock, pedidos pendentes, movimentações recentes e alertas que precisam de atenção.",
     image: uiScreenshot.url,
   },
   {
     label: "Catálogo",
-    description: "Pesquisa poderosa, filtros, ações em massa e campos personalizados permitem gerir centenas de SKUs sem esforço."
+    description: "Pesquisa poderosa, filtros, ações em massa e campos personalizados permitem gerir centenas de SKUs sem esforço.",
     image: uiScreenshot.url,
   },
   {
     label: "Análises",
-    description: "De tendências de stock a desempenho de fornecedores, transforme dados brutos em insights acionáveis e previsões."
+    description: "De tendências de stock a desempenho de fornecedores, transforme dados brutos em insights acionáveis e previsões.",
     image: uiScreenshot.url,
   },
 ];
@@ -96,32 +96,32 @@ const features = [
   {
     icon: BarChart3,
     title: "Rastreamento em tempo real",
-    description: "Monitorize os níveis de stock em todas as localizações à medida que as mudanças acontecem, com dashboards instantâneos e indicadores de estado em tempo real."
+    description: "Monitorize os níveis de stock em todas as localizações à medida que as mudanças acontecem, com dashboards instantâneos e indicadores de estado em tempo real.",
   },
   {
     icon: Bell,
     title: "Alertas de reabastecimento inteligentes",
-    description: "Seja notificado antes que o stock acabe. Limiares automatizados e previsão impulsionada por IA mantêm as prateleiras abastecidas."
+    description: "Seja notificado antes que o stock acabe. Limiares automatizados e previsão impulsionada por IA mantêm as prateleiras abastecidas.",
   },
   {
     icon: Truck,
     title: "Gestão de fornecedores",
-    description: "Organize contactos, prazos de entrega e histórico de compras numa visão unificada com pontuação de desempenho."
+    description: "Organize contactos, prazos de entrega e histórico de compras numa visão unificada com pontuação de desempenho.",
   },
   {
     icon: ScanLine,
     title: "Leitura de códigos de barras",
-    description: "Acelere o recebimento e as contagens cíclicas com suporte a código de barras integrado e modo de entrada rápida."
+    description: "Acelere o recebimento e as contagens cíclicas com suporte a código de barras integrado e modo de entrada rápida.",
   },
   {
     icon: TrendingUp,
     title: "Análises e relatórios",
-    description: "Transforme dados de movimentação em insights com gráficos de tendências, análise de rotatividade e relatórios exportáveis."
+    description: "Transforme dados de movimentação em insights com gráficos de tendências, análise de rotatividade e relatórios exportáveis.",
   },
   {
     icon: Users,
     title: "Funções e permissões da equipa",
-    description: "Controle quem pode visualizar, editar ou aprovar com acesso granular baseado em funções e fluxos de trabalho de aprovação."
+    description: "Controle quem pode visualizar, editar ou aprovar com acesso granular baseado em funções e fluxos de trabalho de aprovação.",
   },
 ];
 

@@ -34,8 +34,8 @@ export const Route = createFileRoute("/app/ai-insights")({
 type UrgencyFilter = "todos" | "critica" | "moderada" | "baixa";
 type ConfidenceFilter = "todos" | "alta" | "media" | "baixa";
 type SortBy = "esgotamento" | "delta";
-type AnomalySeverityFilter = "todos" | "aviso" | "critica";
-type AnomalyTypeFilter = "todos" | "pico_quantidade" | "ajustes_frequentes" | "tempo_incomum";
+type AnomalySeverityFilter = "todos" | "warning" | "critical";
+type AnomalyTypeFilter = "todos" | "quantity_spike" | "frequent_adjustments" | "unusual_timing";
 
 function AiInsightsPage() {
   const { demoStore } = useDemo();
@@ -44,7 +44,7 @@ function AiInsightsPage() {
 
   const [urgency, setUrgency] = useState<UrgencyFilter>("todos");
   const [confidence, setConfidence] = useState<ConfidenceFilter>("todos");
-  const [sortBy, setSortBy] = useState<SortBy>("stockout");
+  const [sortBy, setSortBy] = useState<SortBy>("esgotamento");
   const [anomSeverity, setAnomSeverity] = useState<AnomalySeverityFilter>("todos");
   const [anomType, setAnomType] = useState<AnomalyTypeFilter>("todos");
   const [showDismissed, setShowDismissed] = useState(false);
@@ -81,15 +81,21 @@ function AiInsightsPage() {
 
     if (urgency !== "todos") {
       result = result.filter((a) => {
-        if (a.daysUntilStockout === null) return urgency === "low";
-        if (a.daysUntilStockout < 7) return urgency === "critical";
-        if (a.daysUntilStockout <= 14) return urgency === "moderate";
-        return urgency === "low";
+        if (a.daysUntilStockout === null) return urgency === "baixa";
+        if (a.daysUntilStockout < 7) return urgency === "critica";
+        if (a.daysUntilStockout <= 14) return urgency === "moderada";
+        return urgency === "baixa";
       });
     }
 
     if (confidence !== "todos") {
-      result = result.filter((a) => a.confidence === confidence);
+      const confidenceMap = {
+        alta: "high",
+        media: "medium",
+        baixa: "low",
+      } as const;
+
+      result = result.filter((a) => a.confidence === confidenceMap[confidence]);
     }
 
     if (sortBy === "delta") {
@@ -147,9 +153,9 @@ function AiInsightsPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="todos">Todas as Urgências</SelectItem>
-            <SelectItem value="critica">Crítica (<7d)</SelectItem>
+            <SelectItem value="critica">Crítica (&lt;7d)</SelectItem>
             <SelectItem value="moderada">Moderada (7-14d)</SelectItem>
-            <SelectItem value="baixa">Baixa (>14d)</SelectItem>
+            <SelectItem value="baixa">Baixa (&gt;14d)</SelectItem>
           </SelectContent>
         </Select>
 
@@ -209,7 +215,7 @@ function AiInsightsPage() {
         {/* Anomaly summary */}
         <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
           <span>Total: {allAnomalies.length}</span>
-          <span>Crítica: {allAnomalies.filter((a) => a.severity === "critica").length}</span>
+          <span>Crítica: {allAnomalies.filter((a) => a.severity === "critical").length}</span>
           {allAnomalies.length > 0 && (() => {
             const counts = new Map<string, number>();
             allAnomalies.forEach((a) => counts.set(a.itemId, (counts.get(a.itemId) ?? 0) + 1));
@@ -227,8 +233,8 @@ function AiInsightsPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="todos">Todas as Severidades</SelectItem>
-              <SelectItem value="critica">Crítica</SelectItem>
-              <SelectItem value="aviso">Aviso</SelectItem>
+              <SelectItem value="critical">Crítica</SelectItem>
+              <SelectItem value="warning">Aviso</SelectItem>
             </SelectContent>
           </Select>
 
@@ -238,9 +244,9 @@ function AiInsightsPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="todos">Todos os Tipos</SelectItem>
-              <SelectItem value="pico_quantidade">Pico de Quantidade</SelectItem>
-              <SelectItem value="ajustes_frequentes">Ajustes Frequentes</SelectItem>
-              <SelectItem value="tempo_incomum">Tempo Incomum</SelectItem>
+              <SelectItem value="quantity_spike">Pico de Quantidade</SelectItem>
+              <SelectItem value="frequent_adjustments">Ajustes Frequentes</SelectItem>
+              <SelectItem value="unusual_timing">Tempo Incomum</SelectItem>
             </SelectContent>
           </Select>
 
