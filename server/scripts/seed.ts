@@ -59,6 +59,21 @@ async function seed() {
     },
   ]);
 
+  // Criar perfis e papéis (Unificação)
+  await db.insert(schema.profiles).values([
+    { id: adminId, fullName: "Leonardo Fonseca (Admin)" },
+    { id: managerId, fullName: "Leonardo Fonseca (Manager)" },
+    { id: vendorId, fullName: "Leonardo Fonseca (Vendor)" },
+    { id: customerId, fullName: "Leonardo Fonseca (Cliente)" },
+  ]);
+
+  await db.insert(schema.userRoles).values([
+    { id: uid(), userId: adminId, role: "admin" },
+    { id: uid(), userId: managerId, role: "manager" },
+    { id: uid(), userId: vendorId, role: "vendor" },
+    { id: uid(), userId: customerId, role: "customer" },
+  ]);
+
   // Categorias
   const catBebidas = uid();
   const catMercearia = uid();

@@ -8,7 +8,7 @@ import {
 } from "drizzle-orm/sqlite-core";
 
 /**
- * VendorSmart - Schema das 11 tabelas obrigatorias.
+ * VendorSmart - Schema Unificado.
  * SQLite via @libsql/client. Todas as datas guardadas como ISO strings (UTC).
  */
 
@@ -21,7 +21,7 @@ export const users = sqliteTable(
     email: text("email").notNull().unique(),
     passwordHash: text("password_hash").notNull(),
     role: text("role", {
-      enum: ["admin", "manager", "vendor", "customer"],
+      enum: ["admin", "manager", "vendor", "customer", "requestor"],
     })
       .notNull()
       .default("customer"),
@@ -42,7 +42,25 @@ export const users = sqliteTable(
   }),
 );
 
-// ─── 2. categories ────────────────────────────────────────
+// ─── 2. profiles ──────────────────────────────────────────
+export const profiles = sqliteTable("profiles", {
+  id: text("id").primaryKey().references(() => users.id, { onDelete: "cascade" }),
+  fullName: text("full_name"),
+  avatarUrl: text("avatar_url"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+// ─── 3. userRoles ─────────────────────────────────────────
+export const userRoles = sqliteTable("user_roles", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  role: text("role").notNull(), // admin, manager, requestor, etc.
+}, (t) => ({
+  userRoleUnique: index("user_role_unique_idx").on(t.userId, t.role),
+}));
+
+// ─── 4. categories ────────────────────────────────────────
 export const categories = sqliteTable("categories", {
   id: text("id").primaryKey(),
   name: text("name").notNull().unique(),
@@ -52,7 +70,7 @@ export const categories = sqliteTable("categories", {
   updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
-// ─── 3. suppliers ─────────────────────────────────────────
+// ─── 5. suppliers ─────────────────────────────────────────
 export const suppliers = sqliteTable("suppliers", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -64,11 +82,22 @@ export const suppliers = sqliteTable("suppliers", {
   rating: real("rating").notNull().default(0),
   isActive: integer("is_active", { mode: "boolean" }).notNull().default(true),
   notes: text("notes"),
+  paymentTerms: text("payment_terms"),
+  minOrderQty: integer("min_order_qty"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
-// ─── 4. products ──────────────────────────────────────────
+// ─── 6. locations ─────────────────────────────────────────
+export const locations = sqliteTable("locations", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  parentId: text("parent_id").references((): any => locations.id, { onDelete: "set null" }),
+  description: text("description"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+// ─── 7. products ──────────────────────────────────────────
 export const products = sqliteTable(
   "products",
   {
@@ -83,6 +112,9 @@ export const products = sqliteTable(
     supplierId: text("supplier_id").references(() => suppliers.id, {
       onDelete: "set null",
     }),
+    locationId: text("location_id").references(() => locations.id, {
+      onDelete: "set null",
+    }),
     unit: text("unit").notNull().default("un"),
     currentStock: integer("current_stock").notNull().default(0),
     reorderPoint: integer("reorder_point").notNull().default(0),
@@ -95,17 +127,20 @@ export const products = sqliteTable(
       .notNull()
       .default("active"),
     imageUrl: text("image_url"),
+    tags: text("tags"), // Guardado como string separada por vírgulas ou JSON string
+    customFields: text("custom_fields").notNull().default("{}"), // JSON string
     createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
     updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
     categoryIdx: index("products_category_idx").on(t.categoryId),
     supplierIdx: index("products_supplier_idx").on(t.supplierId),
+    locationIdx: index("products_location_idx").on(t.locationId),
     statusIdx: index("products_status_idx").on(t.status),
   }),
 );
 
-// ─── 5. stockMovements ────────────────────────────────────
+// ─── 8. stockMovements ────────────────────────────────────
 export const stockMovements = sqliteTable(
   "stock_movements",
   {
@@ -116,14 +151,16 @@ export const stockMovements = sqliteTable(
     type: text("type", {
       enum: ["entry", "exit", "adjustment", "transfer"],
     }).notNull(),
+    direction: text("direction"), // "in" ou "out"
     quantity: integer("quantity").notNull(),
-    fromLocation: text("from_location"),
-    toLocation: text("to_location"),
+    fromLocationId: text("from_location_id").references(() => locations.id, { onDelete: "set null" }),
+    toLocationId: text("to_location_id").references(() => locations.id, { onDelete: "set null" }),
     reference: text("reference"),
     notes: text("notes"),
     performedById: text("performed_by_id").references(() => users.id, {
       onDelete: "set null",
     }),
+    resultingQuantity: integer("resulting_quantity"),
     createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (t) => ({
@@ -132,7 +169,7 @@ export const stockMovements = sqliteTable(
   }),
 );
 
-// ─── 6. shoppingLists ─────────────────────────────────────
+// ─── 9. shoppingLists ─────────────────────────────────────
 export const shoppingLists = sqliteTable(
   "shopping_lists",
   {
@@ -158,7 +195,7 @@ export const shoppingLists = sqliteTable(
   }),
 );
 
-// ─── 7. shoppingListItems ─────────────────────────────────
+// ─── 10. shoppingListItems ────────────────────────────────
 export const shoppingListItems = sqliteTable(
   "shopping_list_items",
   {
@@ -180,7 +217,7 @@ export const shoppingListItems = sqliteTable(
   }),
 );
 
-// ─── 8. sales ─────────────────────────────────────────────
+// ─── 11. sales ────────────────────────────────────────────
 export const sales = sqliteTable(
   "sales",
   {
@@ -221,7 +258,7 @@ export const sales = sqliteTable(
   }),
 );
 
-// ─── 9. purchaseOrders ────────────────────────────────────
+// ─── 12. purchaseOrders ───────────────────────────────────
 export const purchaseOrders = sqliteTable(
   "purchase_orders",
   {
@@ -251,7 +288,7 @@ export const purchaseOrders = sqliteTable(
   }),
 );
 
-// ─── 10. purchaseOrderItems ───────────────────────────────
+// ─── 13. purchaseOrderItems ──────────────────────────────
 export const purchaseOrderItems = sqliteTable(
   "purchase_order_items",
   {
@@ -271,7 +308,39 @@ export const purchaseOrderItems = sqliteTable(
   }),
 );
 
-// ─── 11. reports ──────────────────────────────────────────
+// ─── 14. inventoryRequests ───────────────────────────────
+export const inventoryRequests = sqliteTable("inventory_requests", {
+  id: text("id").primaryKey(),
+  requestedById: text("requested_by_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  status: text("status").notNull().default("pending"), // pending, approved, fulfilled, declined
+  reason: text("reason"),
+  projectReference: text("project_reference"),
+  reviewedById: text("reviewed_by_id").references(() => users.id, { onDelete: "set null" }),
+  reviewedAt: text("reviewed_at"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+// ─── 15. requestItems ────────────────────────────────────
+export const requestItems = sqliteTable("request_items", {
+  id: text("id").primaryKey(),
+  requestId: text("request_id").notNull().references(() => inventoryRequests.id, { onDelete: "cascade" }),
+  productId: text("product_id").notNull().references(() => products.id, { onDelete: "restrict" }),
+  quantity: integer("quantity").notNull(),
+});
+
+// ─── 16. customFieldDefinitions ──────────────────────────
+export const customFieldDefinitions = sqliteTable("custom_field_definitions", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  fieldType: text("field_type").notNull(), // text, number, date, boolean, select
+  options: text("options"), // JSON string para campos select
+  categoryId: text("category_id").references(() => categories.id, { onDelete: "set null" }),
+  isRequired: integer("is_required", { mode: "boolean" }).notNull().default(false),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+// ─── 17. reports ──────────────────────────────────────────
 export const reports = sqliteTable(
   "reports",
   {
@@ -299,7 +368,7 @@ export const reports = sqliteTable(
   }),
 );
 
-// ─── Tabela auxiliar de notificacoes (in-app) ─────────────
+// ─── 18. notifications ────────────────────────────────────
 export const notifications = sqliteTable(
   "notifications",
   {
@@ -307,21 +376,12 @@ export const notifications = sqliteTable(
     userId: text("user_id").references(() => users.id, {
       onDelete: "cascade",
     }),
-    type: text("type", {
-      enum: [
-        "low_stock",
-        "zero_stock",
-        "po_reminder",
-        "po_received",
-        "new_sale",
-        "shopping_list_ready",
-        "system",
-      ],
-    }).notNull(),
+    type: text("type").notNull(),
     title: text("title").notNull(),
     message: text("message").notNull(),
     link: text("link"),
     referenceId: text("reference_id"),
+    referenceType: text("reference_type"), // item, purchase_order, request, etc.
     isRead: integer("is_read", { mode: "boolean" }).notNull().default(false),
     createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
@@ -334,10 +394,16 @@ export const notifications = sqliteTable(
 // ─── Tipos exportados ─────────────────────────────────────
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
+export type Profile = typeof profiles.$inferSelect;
+export type NewProfile = typeof profiles.$inferInsert;
+export type UserRole = typeof userRoles.$inferSelect;
+export type NewUserRole = typeof userRoles.$inferInsert;
 export type Category = typeof categories.$inferSelect;
 export type NewCategory = typeof categories.$inferInsert;
 export type Supplier = typeof suppliers.$inferSelect;
 export type NewSupplier = typeof suppliers.$inferInsert;
+export type Location = typeof locations.$inferSelect;
+export type NewLocation = typeof locations.$inferInsert;
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
 export type StockMovement = typeof stockMovements.$inferSelect;
@@ -352,6 +418,12 @@ export type PurchaseOrder = typeof purchaseOrders.$inferSelect;
 export type NewPurchaseOrder = typeof purchaseOrders.$inferInsert;
 export type PurchaseOrderItem = typeof purchaseOrderItems.$inferSelect;
 export type NewPurchaseOrderItem = typeof purchaseOrderItems.$inferInsert;
+export type InventoryRequest = typeof inventoryRequests.$inferSelect;
+export type NewInventoryRequest = typeof inventoryRequests.$inferInsert;
+export type RequestItem = typeof requestItems.$inferSelect;
+export type NewRequestItem = typeof requestItems.$inferInsert;
+export type CustomFieldDefinition = typeof customFieldDefinitions.$inferSelect;
+export type NewCustomFieldDefinition = typeof customFieldDefinitions.$inferInsert;
 export type Report = typeof reports.$inferSelect;
 export type NewReport = typeof reports.$inferInsert;
 export type Notification = typeof notifications.$inferSelect;
