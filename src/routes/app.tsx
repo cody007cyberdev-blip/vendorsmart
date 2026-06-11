@@ -11,6 +11,7 @@ import { useAppStore } from "@/store/useAppStore";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { canAccessRoute } from "@/lib/route-guard";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -22,6 +23,7 @@ function AppLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [helpOpen, setHelpOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useKeyboardShortcuts({ onHelpOpen: () => setHelpOpen(true) });
 
@@ -49,22 +51,37 @@ function AppLayout() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-background">
+    <div className="flex h-screen flex-col overflow-hidden bg-[#F8F9FA]">
       <div className="flex flex-1 overflow-hidden">
-        <aside className="hidden w-[260px] shrink-0 md:block">
-          <Sidebar />
+        {/* Sidebar with Collapsible Logic */}
+        <aside 
+          className={cn(
+            "hidden md:block shrink-0 transition-all duration-300 ease-in-out border-r border-white/5 bg-[#1A1A1A]",
+            sidebarCollapsed ? "w-20" : "w-72"
+          )}
+        >
+          <Sidebar collapsed={sidebarCollapsed} />
         </aside>
+
         <div className="flex flex-1 flex-col overflow-hidden">
-          <Header />
-          <main className="flex-1 overflow-y-auto p-4 pb-20 md:p-8 md:pb-8">
+          {/* Header with Toggle Button */}
+          <Header 
+            sidebarCollapsed={sidebarCollapsed} 
+            onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} 
+          />
+          
+          <main className="flex-1 overflow-y-auto custom-scrollbar">
             <AnimatePresence mode="wait">
               <PageTransition routeKey={location.pathname}>
-                <Outlet />
+                <div className="p-0">
+                  <Outlet />
+                </div>
               </PageTransition>
             </AnimatePresence>
           </main>
         </div>
       </div>
+      
       <BottomNav />
       <ShortcutsHelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
     </div>
