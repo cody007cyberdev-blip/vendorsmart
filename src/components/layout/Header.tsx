@@ -29,76 +29,49 @@ export function Header({ sidebarCollapsed, onToggleSidebar }: HeaderProps) {
 
   return (
     <div className="flex flex-col w-full bg-white border-b border-gray-100 z-30">
-      {/* Upper Header Row (Leonardo Fonseca) */}
-      <div className="h-12 px-6 flex items-center justify-between border-b border-gray-50 bg-white/50">
+      {/* Refined Professional Header Row */}
+      <div className="h-16 px-6 flex items-center justify-between bg-white">
         <div className="flex items-center gap-4 flex-1">
           {/* Sidebar Toggle Button */}
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={onToggleSidebar}
-            className="h-8 w-8 text-gray-400 hover:text-orange-500 hover:bg-orange-50 transition-colors"
+            className="h-9 w-9 text-gray-400 hover:text-orange-500 hover:bg-orange-50 transition-colors"
           >
-            {sidebarCollapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
+            {sidebarCollapsed ? <PanelLeftOpen className="w-5 h-5" /> : <PanelLeftClose className="w-5 h-5" />}
           </Button>
 
-          <div className="relative w-full max-w-sm group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 group-hover:text-gray-600 transition-colors" />
-            <Input 
-              className="h-8 pl-9 pr-12 bg-gray-50/50 border-gray-100 focus:bg-white focus:ring-1 focus:ring-orange-500/20 transition-all text-[11px] rounded-lg" 
-              placeholder="Search..." 
-              onClick={() => setPaletteOpen(true)}
-            />
-            <kbd className="absolute right-2 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded border border-gray-200 bg-white font-mono text-[9px] text-gray-400 shadow-sm">
-              ⌘K
-            </kbd>
-          </div>
-          
-          <div className="flex items-center gap-1.5 ml-2">
-            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg border border-gray-100 bg-gray-50/50 hover:bg-white hover:shadow-sm">
-              <ScanBarcode className="w-3.5 h-3.5 text-gray-500" />
-            </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg border border-gray-100 bg-gray-50/50 hover:bg-white hover:shadow-sm">
-              <Plus className="w-3.5 h-3.5 text-gray-500" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-5">
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-900">
-            <Bell className="w-4 h-4" />
-          </Button>
-          
-          <div className="flex items-center gap-2.5 cursor-pointer group px-2 py-1 rounded-lg hover:bg-gray-50 transition-colors">
-            <div className="w-7 h-7 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center overflow-hidden">
-              <User className="w-3.5 h-3.5 text-gray-500" />
+          <div className="flex items-center gap-4 ml-2">
+            <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20 transition-transform hover:scale-105">
+              <LayoutGridIcon className="w-5 h-5 text-white" />
             </div>
-            <span className="text-[11px] font-bold text-gray-700 group-hover:text-gray-900">Leonardo Fonseca</span>
-            <ChevronDown className="w-3 h-3 text-gray-400 group-hover:text-gray-600" />
+            <div className="flex flex-col">
+              <h1 className="text-sm font-black tracking-tight uppercase text-gray-900 leading-none mb-1">Dashboard</h1>
+              <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.15em]">Real-time overview of inventory and operations</p>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Lower Header Row (Dashboard / João Almeida) */}
-      <div className="h-16 px-6 flex items-center justify-between bg-white">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20 transition-transform hover:scale-105">
-            <LayoutGridIcon className="w-5 h-5 text-white" />
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-sm font-black tracking-tight uppercase text-gray-900 leading-none mb-1">Dashboard</h1>
-            <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.15em]">Real-time overview of inventory and operations</p>
-          </div>
-        </div>
+          <div className="h-8 w-px bg-gray-100 mx-4 hidden lg:block" />
 
-        <div className="flex items-center gap-8">
-          <div className="relative w-72 group hidden lg:block">
+          <div className="relative w-full max-w-sm group hidden lg:block">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
             <Input 
               className="h-10 pl-11 bg-gray-100/50 border-none rounded-full text-xs focus:bg-white focus:ring-2 focus:ring-orange-500/10 transition-all" 
               placeholder="Search (Ctrl + K)" 
               onClick={() => setPaletteOpen(true)}
             />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-1.5 mr-2">
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg border border-gray-100 bg-gray-50/50 hover:bg-white hover:shadow-sm">
+              <ScanBarcode className="w-4 h-4 text-gray-500" />
+            </Button>
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg border border-gray-100 bg-gray-50/50 hover:bg-white hover:shadow-sm">
+              <Plus className="w-4 h-4 text-gray-500" />
+            </Button>
           </div>
 
           <div className="flex items-center gap-5">
@@ -112,12 +85,12 @@ export function Header({ sidebarCollapsed, onToggleSidebar }: HeaderProps) {
             
             <div className="h-8 w-px bg-gray-100 mx-2" />
             
-            <div className="flex items-center gap-3.5 pl-2">
+            <div className="flex items-center gap-3.5 pl-2 group cursor-pointer">
               <div className="text-right">
-                <p className="text-[11px] font-black text-gray-900 leading-none mb-1">João Almeida</p>
+                <p className="text-[11px] font-black text-gray-900 leading-none mb-1 group-hover:text-orange-500 transition-colors">João Almeida</p>
                 <p className="text-[8px] text-gray-400 uppercase font-black tracking-widest">System Admin</p>
               </div>
-              <div className="w-10 h-10 rounded-full border-2 border-white shadow-md overflow-hidden transition-transform hover:scale-110 cursor-pointer">
+              <div className="w-10 h-10 rounded-full border-2 border-white shadow-md overflow-hidden transition-transform group-hover:scale-110">
                 <img src="https://github.com/shadcn.png" alt="João Almeida" className="w-full h-full object-cover" />
               </div>
             </div>
