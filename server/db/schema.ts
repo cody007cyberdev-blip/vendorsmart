@@ -34,6 +34,7 @@ export const users = sqliteTable(
     name: text("name").notNull(),
     email: text("email").notNull().unique(),
     passwordHash: text("password_hash").notNull(),
+    phone: text("phone"), // Added to fix auth error
     role: text("role", {
       enum: ["admin", "manager", "vendor", "customer", "requestor", "employee"],
     })
@@ -41,6 +42,13 @@ export const users = sqliteTable(
       .default("customer"),
     companyId: text("company_id").references(() => companies.id, { onDelete: "cascade" }),
     isActive: integer("is_active", { mode: "boolean" }).notNull().default(true),
+    
+    // 2FA and Auth Fields (Added to fix auth error)
+    twoFactorEnabled: integer("two_factor_enabled", { mode: "boolean" }).notNull().default(false),
+    twoFactorCode: text("two_factor_code"),
+    twoFactorExpiresAt: text("two_factor_expires_at"),
+    lastLoginAt: text("last_login_at"),
+    
     createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   }
 );
