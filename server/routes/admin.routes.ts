@@ -2,13 +2,13 @@ import { Router } from "express";
 import { db } from "../db/client";
 import { users, companies, employees, clients } from "../db/schema";
 import { eq } from "drizzle-orm";
-import { authenticate, authorize } from "../middleware/auth.middleware";
+import { authenticate, requireRole } from "../middleware/auth.middleware";
 
 const router = Router();
 
 // Todas as rotas de admin requerem autenticação e cargo de admin
 router.use(authenticate);
-router.use(authorize(["admin"]));
+router.use(requireRole("admin"));
 
 // ─── GESTÃO DE UTILIZADORES ───────────────────────────────────
 
