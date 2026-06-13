@@ -2,7 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/register")({
   component: RegisterPage,
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/register")({
 function RegisterPage() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     // Empresa
     companyName: "",
@@ -37,21 +39,40 @@ function RegisterPage() {
     if (step === 1) {
       setStep(2);
     } else {
-      // Enviar dados para o servidor
+      if (formData.adminPassword !== formData.adminPasswordConfirm) {
+        toast.error("As senhas não coincidem");
+        return;
+      }
+
+      setLoading(true);
+      const promise = fetch("/api/auth/register-company", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      toast.promise(promise, {
+        loading: "A criar a sua empresa e conta admin...",
+        success: (response) => {
+          if (!response.ok) throw new Error("Falha no registo");
+          setTimeout(() => navigate({ to: "/app/dashboard" }), 1500);
+          return "Conta criada com sucesso! Bem-vindo ao VendorSmart.";
+        },
+        error: (err) => {
+          setLoading(false);
+          return "Erro ao registar. Verifique os dados e tente novamente.";
+        },
+      });
+
       try {
-        const response = await fetch("/api/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
+        const response = await promise;
         if (response.ok) {
-          navigate({ to: "/app/dashboard" });
-        } else {
-          alert("Erro ao registar. Tente novamente.");
+          // Opcional: guardar token se necessário, mas o servidor já deve definir cookie
         }
       } catch (err) {
         console.error(err);
-        alert("Erro na conexão.");
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -211,6 +232,7 @@ function RegisterPage() {
                 type="button"
                 onClick={() => setStep(1)}
                 variant="outline"
+                disabled={loading}
                 className="flex-1 border-2 border-gray-300 text-gray-700 hover:bg-gray-50"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" /> Voltar
@@ -218,9 +240,17 @@ function RegisterPage() {
             )}
             <Button
               type="submit"
+              disabled={loading}
               className={`flex-1 ${step === 1 ? "w-full" : ""} bg-orange-600 hover:bg-orange-700 text-white font-semibold`}
             >
-              {step === 1 ? "Continuar" : "Criar Conta"} <ArrowRight className="ml-2 h-4 w-4" />
+              {loading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : step === 1 ? (
+                "Continuar"
+              ) : (
+                "Criar Conta"
+              )} 
+              {!loading && <ArrowRight className="ml-2 h-4 w-4" />}
             </Button>
           </div>
         </form>

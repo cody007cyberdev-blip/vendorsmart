@@ -42,7 +42,7 @@ export const users = sqliteTable(
     })
       .notNull()
       .default("customer"),
-    companyId: text("company_id").notNull().references(() => companies.id, { onDelete: "cascade" }), // Multi-tenancy
+    companyId: text("company_id").references(() => companies.id, { onDelete: "cascade" }), // Multi-tenancy (nullable for initial setup)
     isActive: integer("is_active", { mode: "boolean" }).notNull().default(true),
     
     // 2FA and Auth Fields
