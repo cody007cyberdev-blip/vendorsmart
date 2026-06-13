@@ -13,6 +13,7 @@ import { purchaseOrdersRouter } from "./routes/purchaseOrders.routes.js";
 import { reportsRouter } from "./routes/reports.routes.js";
 import { dashboardRouter } from "./routes/dashboard.routes.js";
 import { notificationsRouter } from "./routes/notifications.routes.js";
+import adminRouter from "./routes/admin.routes.js";
 import { startBackupSchedule } from "./services/backup.service.js";
 import { sqliteClient } from "./db/client.js";
 
@@ -97,6 +98,7 @@ async function bootstrap() {
   app.use("/api/reports", reportsRouter);
   app.use("/api/dashboard", dashboardRouter);
   app.use("/api/notifications", notificationsRouter);
+  app.use("/api/admin", adminRouter);
 
   // Servir build do frontend em producao
   const distDir = path.resolve("dist");
