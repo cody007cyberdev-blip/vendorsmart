@@ -2,7 +2,7 @@ import { Router } from "express";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { randomUUID } from "node:crypto";
-import { db, schema } from "../db/client.js";
+import { db, schema } from "../db/client.ts";
 import {
   hashPassword,
   verifyPassword,
@@ -256,6 +256,7 @@ const registerCompanySchema = z.object({
   adminEmail: z.string().email(),
   adminPassword: z.string().min(8),
   adminPasswordConfirm: z.string().min(8),
+  plan: z.enum(["vendedor", "loja", "minimercado_supermercado"]).optional().default("vendedor"),
 });
 
 authRouter.post("/register-company", async (req, res) => {
@@ -264,7 +265,7 @@ authRouter.post("/register-company", async (req, res) => {
     return res.status(400).json({ error: "Dados invalidos", details: parsed.error.flatten() });
   }
 
-  const { companyName, companyLegalName, nif, country, currency, adminName, adminEmail, adminPassword, adminPasswordConfirm } = parsed.data;
+    const { companyName, companyLegalName, nif, country, currency, adminName, adminEmail, adminPassword, adminPasswordConfirm, plan } = parsed.data;
 
   if (adminPassword !== adminPasswordConfirm) {
     return res.status(400).json({ error: "As senhas nao coincidem" });
@@ -292,6 +293,23 @@ authRouter.post("/register-company", async (req, res) => {
       address: "",
       city: "",
       createdAt: new Date().toISOString(),
+      licenseStatus: "trial", // Default to trial for new registrations
+      licenseExpiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days trial
+    });
+
+    // Create initial license entry
+    const licenseAmount = plan === "vendedor" ? 500 : plan === "loja" ? 1000 : 1500;
+    const licenseCurrency = (currency || "EUR") as "EUR" | "CVE";
+    await db.insert(schema.licenses).values({
+      id: randomUUID(),
+      companyId,
+      plan,
+      status: "trial",
+      amount: licenseAmount,
+      currency: licenseCurrency,
+      nextBillingDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     });
 
     const adminId = randomUUID();

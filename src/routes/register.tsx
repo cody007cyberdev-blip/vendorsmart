@@ -24,6 +24,7 @@ function RegisterPage() {
     adminEmail: "",
     adminPassword: "",
     adminPasswordConfirm: "",
+    plan: "vendedor", // Default plan
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -132,6 +133,20 @@ function RegisterPage() {
                     <option value="CVE">CVE ($)</option>
                   </select>
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Plano de Licença</label>
+                <select
+                  name="plan"
+                  value={formData.plan}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600"
+                >
+                  <option value="vendedor">Vendedor (500 CVE)</option>
+                  <option value="loja">Loja (1000 CVE)</option>
+                  <option value="minimercado_supermercado">Minimercado/Supermercado (1500 CVE)</option>
+                </select>
               </div>
             </>
           ) : (

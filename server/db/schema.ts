@@ -16,14 +16,16 @@ export const companies = sqliteTable("companies", {
   email: text("email").notNull(),
   phone: text("phone"),
   website: text("website"),
-  address: text("address").notNull(),
-  city: text("city").notNull(),
+  address: text("address"),
+  city: text("city"),
   postalCode: text("postal_code"),
   country: text("country", { enum: ["PT", "CV"] }).notNull().default("PT"),
   currency: text("currency", { enum: ["EUR", "CVE"] }).notNull().default("EUR"),
   taxRegime: text("tax_regime"), // ex: Regime Geral, Isento
   logoUrl: text("logo_url"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  licenseStatus: text("license_status", { enum: ["trial", "active", "expired", "suspended"] }).notNull().default("trial"),
+  licenseExpiresAt: text("license_expires_at"),
 });
 
 // ─── 2. users ─────────────────────────────────────────────
@@ -156,4 +158,19 @@ export const suppliers = sqliteTable("suppliers", {
   postalCode: text("postal_code"),
   country: text("country"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+// ─── 12. licenses (Gestão de Licenças) ────────────────────
+export const licenses = sqliteTable("licenses", {
+  id: text("id").primaryKey(),
+  companyId: text("company_id").notNull().references(() => companies.id, { onDelete: "cascade" }),
+  plan: text("plan", { enum: ["vendedor", "loja", "minimercado_supermercado"] }).notNull(),
+  status: text("status", { enum: ["active", "expired", "suspended"] }).notNull().default("active"),
+  amount: integer("amount").notNull(),
+  currency: text("currency", { enum: ["EUR", "CVE"] }).notNull(),
+  nextBillingDate: text("next_billing_date").notNull(),
+  lastPaymentDate: text("last_payment_date"),
+  paymentMethod: text("payment_method"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });

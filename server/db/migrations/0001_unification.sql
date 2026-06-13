@@ -54,16 +54,15 @@ CREATE TABLE IF NOT EXISTS custom_field_definitions (
 );
 
 -- 2. Alterações em Tabelas Existentes (SQLite não suporta ADD COLUMN com constraints complexas em massa, então fazemos um de cada vez)
-ALTER TABLE suppliers ADD COLUMN payment_terms TEXT;
-ALTER TABLE suppliers ADD COLUMN min_order_qty INTEGER;
+-- ALTER TABLE suppliers ADD COLUMN payment_terms TEXT;
+-- ALTER TABLE suppliers ADD COLUMN min_order_qty INTEGER;
 
-ALTER TABLE products ADD COLUMN location_id TEXT REFERENCES locations(id) ON DELETE SET NULL;
-ALTER TABLE products ADD COLUMN tags TEXT;
-ALTER TABLE products ADD COLUMN custom_fields TEXT NOT NULL DEFAULT '{}';
+-- ALTER TABLE products ADD COLUMN location_id TEXT REFERENCES locations(id) ON DELETE SET NULL;
+-- ALTER TABLE products ADD COLUMN tags TEXT;
+-- ALTER TABLE products ADD COLUMN custom_fields TEXT NOT NULL DEFAULT 
+-- ALTER TABLE stock_movements ADD COLUMN direction TEXT;
+-- ALTER TABLE stock_movements ADD COLUMN from_location_id TEXT REFERENCES locations(id) ON DELETE SET NULL;
+-- ALTER TABLE stock_movements ADD COLUMN to_location_id TEXT REFERENCES locations(id) ON DELETE SET NULL;
+-- ALTER TABLE stock_movements ADD COLUMN resulting_quantity INTEGER;
 
-ALTER TABLE stock_movements ADD COLUMN direction TEXT;
-ALTER TABLE stock_movements ADD COLUMN from_location_id TEXT REFERENCES locations(id) ON DELETE SET NULL;
-ALTER TABLE stock_movements ADD COLUMN to_location_id TEXT REFERENCES locations(id) ON DELETE SET NULL;
-ALTER TABLE stock_movements ADD COLUMN resulting_quantity INTEGER;
-
-ALTER TABLE notifications ADD COLUMN reference_type TEXT;
+-- ALTER TABLE notifications ADD COLUMN reference_type TEXT;
