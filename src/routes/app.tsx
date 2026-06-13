@@ -45,18 +45,18 @@ function AppLayout() {
   if (loading || !isAuthenticated) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground" />
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary/30 border-t-primary" />
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#F8F9FA]">
+    <div className="flex h-screen flex-col overflow-hidden bg-background">
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar with Collapsible Logic */}
         <aside 
           className={cn(
-            "hidden md:block shrink-0 transition-all duration-300 ease-in-out border-r border-white/5 bg-[#1A1A1A]",
+            "hidden md:block shrink-0 transition-all duration-300 ease-in-out border-r border-sidebar-border bg-sidebar",
             sidebarCollapsed ? "w-20" : "w-72"
           )}
         >

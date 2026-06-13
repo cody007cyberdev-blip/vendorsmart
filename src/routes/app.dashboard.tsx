@@ -10,18 +10,17 @@ import {
   Bell, 
   Settings, 
   ChevronDown,
-  PlusCircle,
-  Hammer,
-  ShoppingCart,
-  ArrowLeftRight,
+  LayoutGrid,
   BarChart3,
   Calendar,
   Filter,
   BarChart,
-  LayoutGrid
+  PlusCircle,
+  Hammer,
+  ShoppingCart,
+  ArrowLeftRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -33,43 +32,7 @@ export const Route = createFileRoute("/app/dashboard")({
 
 function DashboardPage() {
   return (
-    <div className="flex flex-col h-full bg-[#F8F9FA] overflow-hidden">
-      {/* Top Header Bar */}
-      <header className="h-16 bg-white border-b flex items-center justify-between px-8 shrink-0">
-        <div className="flex items-center gap-4">
-          <div className="p-2 bg-orange-500 rounded-lg">
-            <LayoutGrid className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-lg font-black tracking-tight uppercase">Dashboard</h1>
-            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Real-time overview of inventory and operations</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <div className="relative w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input className="pl-10 h-10 bg-muted/20 border-none rounded-full text-xs" placeholder="Search (Ctrl + K)" />
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <Bell className="w-5 h-5 text-muted-foreground" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center border-2 border-white">8</span>
-            </div>
-            <Settings className="w-5 h-5 text-muted-foreground" />
-            <div className="flex items-center gap-3 pl-4 border-l">
-              <div className="text-right">
-                <p className="text-xs font-bold">João Almeida</p>
-                <p className="text-[9px] text-muted-foreground uppercase font-black">System Admin</p>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-slate-200 border overflow-hidden">
-                <img src="https://github.com/shadcn.png" alt="Avatar" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <div className="flex flex-col h-full bg-background overflow-hidden">
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto p-8 custom-scrollbar">
         <div className="max-w-[1600px] mx-auto space-y-8">
@@ -81,7 +44,7 @@ function DashboardPage() {
               <span className="text-xs font-bold">01/05/2025 - 31/05/2025</span>
               <ChevronDown className="w-3 h-3 text-muted-foreground" />
             </div>
-            <Button className="bg-orange-500 hover:bg-orange-600 gap-2 h-10 font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-orange-500/20">
+            <Button className="bg-primary hover:bg-primary/90 gap-2 h-10 font-bold uppercase text-[10px] tracking-widest shadow-lg shadow-primary/20">
               <Settings className="w-3.5 h-3.5" />
               Customize
               <ChevronDown className="w-3 h-3" />
@@ -90,20 +53,20 @@ function DashboardPage() {
 
           {/* Metric Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            <Card className="bg-[#1A1A1A] text-white border-none shadow-2xl">
+            <Card className="bg-sidebar text-sidebar-foreground border-none shadow-2xl">
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-1">Total Inventory Value</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-sidebar-foreground/50 mb-1">Total Inventory Value</p>
                     <h3 className="text-2xl font-black">€2,657,890.45</h3>
                   </div>
-                  <div className="p-2 bg-white/10 rounded-lg">
-                    <BarChart3 className="w-5 h-5 text-orange-500" />
+                  <div className="p-2 bg-sidebar-accent rounded-lg">
+                    <BarChart3 className="w-5 h-5 text-primary" />
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-bold">
                   <span className="text-green-400">↑ 12.4%</span>
-                  <span className="text-white/30 uppercase tracking-widest">vs Apr 2025</span>
+                  <span className="text-sidebar-foreground/30 uppercase tracking-widest">vs Apr 2025</span>
                 </div>
               </CardContent>
             </Card>
@@ -115,8 +78,8 @@ function DashboardPage() {
                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Total SKUs</p>
                     <h3 className="text-2xl font-black">8,842</h3>
                   </div>
-                  <div className="p-2 bg-orange-50 rounded-lg">
-                    <Tag className="w-5 h-5 text-orange-500" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Tag className="w-5 h-5 text-primary" />
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-bold">
@@ -133,8 +96,8 @@ function DashboardPage() {
                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Stock Turnover (YTD)</p>
                     <h3 className="text-2xl font-black">5.68x</h3>
                   </div>
-                  <div className="p-2 bg-orange-50 rounded-lg">
-                    <RefreshCcw className="w-5 h-5 text-orange-500" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <RefreshCcw className="w-5 h-5 text-primary" />
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-bold">
@@ -152,11 +115,11 @@ function DashboardPage() {
                     <h3 className="text-2xl font-black">128</h3>
                   </div>
                   <div className="p-2 bg-red-50 rounded-lg">
-                    <AlertTriangle className="w-5 h-5 text-red-500" />
+                    <AlertTriangle className="w-5 h-5 text-destructive" />
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-bold">
-                  <span className="text-red-500">↓ 8.6%</span>
+                  <span className="text-destructive">↓ 8.6%</span>
                   <span className="text-muted-foreground/50 uppercase tracking-widest">vs Apr 2025</span>
                 </div>
               </CardContent>
@@ -170,11 +133,11 @@ function DashboardPage() {
                     <h3 className="text-2xl font-black">32</h3>
                   </div>
                   <div className="p-2 bg-red-50 rounded-lg">
-                    <XCircle className="w-5 h-5 text-red-500" />
+                    <XCircle className="w-5 h-5 text-destructive" />
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-bold">
-                  <span className="text-red-500">↓ 11.4%</span>
+                  <span className="text-destructive">↓ 11.4%</span>
                   <span className="text-muted-foreground/50 uppercase tracking-widest">vs Apr 2025</span>
                 </div>
               </CardContent>
@@ -213,8 +176,8 @@ function DashboardPage() {
               </CardHeader>
               <CardContent className="p-6 flex flex-col items-center">
                 <div className="relative w-48 h-48 mb-6">
-                  <div className="absolute inset-0 rounded-full border-[12px] border-orange-500 border-t-transparent border-l-transparent rotate-45" />
-                  <div className="absolute inset-0 rounded-full border-[12px] border-purple-500 border-b-transparent border-r-transparent -rotate-12 opacity-50" />
+                  <div className="absolute inset-0 rounded-full border-[12px] border-primary border-t-transparent border-l-transparent rotate-45" />
+                  <div className="absolute inset-0 rounded-full border-[12px] border-sidebar border-b-transparent border-r-transparent -rotate-12 opacity-50" />
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="text-xl font-black">€2.66M</span>
                     <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Total</span>
@@ -223,14 +186,14 @@ function DashboardPage() {
                 <div className="grid grid-cols-2 gap-x-8 gap-y-2 w-full">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500" />
+                      <div className="w-2 h-2 rounded-full bg-primary" />
                       <span className="text-[9px] font-bold uppercase tracking-widest">Raw Materials</span>
                     </div>
                     <span className="text-[9px] font-black">€1.12M (42.1%)</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-black" />
+                      <div className="w-2 h-2 rounded-full bg-sidebar" />
                       <span className="text-[9px] font-bold uppercase tracking-widest">Finished Goods</span>
                     </div>
                     <span className="text-[9px] font-black">€0.85M (31.9%)</span>
@@ -242,7 +205,7 @@ function DashboardPage() {
             <Card className="lg:col-span-1 bg-white border-none shadow-sm">
               <CardHeader className="flex flex-row items-center justify-between border-b pb-4 px-6">
                 <CardTitle className="text-[11px] font-black uppercase tracking-widest">Top Low Stock Items</CardTitle>
-                <Button variant="link" className="text-[9px] font-black uppercase tracking-widest text-orange-500 p-0 h-auto">View all</Button>
+                <Button variant="link" className="text-[9px] font-black uppercase tracking-widest text-primary p-0 h-auto">View all</Button>
               </CardHeader>
               <CardContent className="p-0">
                 <table className="w-full">
@@ -263,7 +226,7 @@ function DashboardPage() {
                     ].map((item, i) => (
                       <tr key={i} className="hover:bg-muted/5">
                         <td className="px-6 py-3 text-[10px] font-bold">{item.name}</td>
-                        <td className="px-6 py-3 text-center text-[10px] font-black text-red-500">{item.stock}</td>
+                        <td className="px-6 py-3 text-center text-[10px] font-black text-destructive">{item.stock}</td>
                         <td className="px-6 py-3 text-center text-[10px] font-bold text-muted-foreground">{item.min}</td>
                       </tr>
                     ))}
@@ -284,11 +247,10 @@ function DashboardPage() {
                 </div>
               </CardHeader>
               <CardContent className="p-6 h-[250px] flex items-end">
-                <div className="w-full h-full relative overflow-hidden rounded bg-orange-50/30 border border-orange-100">
-                  <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 h-[60%] border-t-2 border-orange-500 flex items-center justify-center">
-                     <span className="text-[9px] font-black uppercase tracking-[0.3em] text-orange-500/30">Growth Trend Visualization</span>
-                  </div>
+                <div className="w-full h-full flex items-end gap-1">
+                  {[40, 45, 38, 52, 60, 58, 65, 72, 68, 80, 85, 82, 90, 95, 88, 100].map((h, i) => (
+                    <div key={i} className="flex-1 bg-primary/20 hover:bg-primary transition-colors rounded-t-sm" style={{ height: `${h}%` }} />
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -296,6 +258,7 @@ function DashboardPage() {
             <Card className="bg-white border-none shadow-sm">
               <CardHeader className="flex flex-row items-center justify-between border-b pb-4 px-6">
                 <CardTitle className="text-[11px] font-black uppercase tracking-widest">ABC Classification (by Value)</CardTitle>
+                <AlertTriangle className="w-4 h-4 text-muted-foreground" />
               </CardHeader>
               <CardContent className="p-0">
                 <table className="w-full">
@@ -308,37 +271,33 @@ function DashboardPage() {
                       <th className="px-6 py-3 text-right text-[8px] font-black uppercase tracking-widest text-muted-foreground">% of Value</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y text-[10px]">
+                  <tbody className="divide-y">
                     {[
-                      { class: "A", skus: "732", percSkus: "8.3%", val: "€1,592,340", percVal: "59.9%", color: "bg-orange-500" },
-                      { class: "B", skus: "2,124", percSkus: "24.0%", val: "€828,710", percVal: "31.2%", color: "bg-orange-300" },
-                      { class: "C", skus: "5,986", percSkus: "67.7%", val: "€236,840", percVal: "8.9%", color: "bg-orange-100" },
+                      { class: "A", skus: 732, skuPerc: "8.3%", value: "€1,592,340", valPerc: "59.9%", color: "bg-primary" },
+                      { class: "B", skus: 2124, skuPerc: "24.0%", value: "€828,710", valPerc: "31.2%", color: "bg-sidebar" },
+                      { class: "C", skus: 5986, skuPerc: "67.7%", value: "€236,840", valPerc: "8.9%", color: "bg-muted-foreground" },
                     ].map((row, i) => (
-                      <tr key={i}>
-                        <td className="px-6 py-4 font-black">{row.class}</td>
-                        <td className="px-6 py-4 text-center font-bold">{row.skus}</td>
-                        <td className="px-6 py-4 text-center font-bold text-muted-foreground">{row.percSkus}</td>
-                        <td className="px-6 py-4 text-right font-black">{row.val}</td>
-                        <td className="px-6 py-4 text-right">
-                          <div className="flex items-center justify-end gap-3">
-                            <span className="font-black">{row.percVal}</span>
-                            <div className="w-24 h-1.5 bg-muted rounded-full overflow-hidden">
-                              <div className={cn("h-full", row.color)} style={{ width: row.percVal }} />
+                      <tr key={i} className="hover:bg-muted/5">
+                        <td className="px-6 py-3">
+                          <div className="flex items-center gap-2">
+                            <div className={cn("w-1.5 h-1.5 rounded-full", row.color)} />
+                            <span className="text-[10px] font-black">{row.class}</span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-3 text-center text-[10px] font-bold">{row.skus}</td>
+                        <td className="px-6 py-3 text-center text-[10px] font-bold text-muted-foreground">{row.skuPerc}</td>
+                        <td className="px-6 py-3 text-right text-[10px] font-black">{row.value}</td>
+                        <td className="px-6 py-3 text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <span className="text-[10px] font-black">{row.valPerc}</span>
+                            <div className="w-16 h-1 bg-muted rounded-full overflow-hidden">
+                              <div className={cn("h-full", row.color)} style={{ width: row.valPerc }} />
                             </div>
                           </div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
-                  <tfoot className="bg-muted/5 border-t">
-                    <tr className="text-[10px] font-black">
-                      <td className="px-6 py-4">Total</td>
-                      <td className="px-6 py-4 text-center">8,842</td>
-                      <td className="px-6 py-4 text-center text-muted-foreground">100%</td>
-                      <td className="px-6 py-4 text-right">€2,657,890</td>
-                      <td className="px-6 py-4 text-right">100%</td>
-                    </tr>
-                  </tfoot>
                 </table>
               </CardContent>
             </Card>
@@ -346,82 +305,41 @@ function DashboardPage() {
         </div>
       </main>
 
-      {/* Floating Bottom Quick Actions Bar */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-[#1A1A1A] text-white border border-white/10 shadow-2xl rounded-xl p-2 px-6 z-50">
-        <div className="flex items-center gap-2 px-4 border-r border-white/10 mr-2">
-          <Zap className="w-4 h-4 text-orange-500" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em]">Quick Actions</span>
+      {/* Floating Action Bar */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+        <div className="bg-sidebar/90 backdrop-blur-md border border-sidebar-border rounded-2xl shadow-2xl p-2 flex items-center gap-2">
+          <div className="flex items-center gap-2 px-4 border-r border-sidebar-border mr-2">
+            <Zap className="w-4 h-4 text-primary animate-pulse-orange" />
+            <span className="text-[10px] font-black text-white uppercase tracking-widest">Quick Actions</span>
+          </div>
+          <div className="flex gap-1">
+            <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10 gap-2 h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest">
+              <PlusCircle className="w-3.5 h-3.5" />
+              New Purchase Order
+            </Button>
+            <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10 gap-2 h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest">
+              <Hammer className="w-3.5 h-3.5" />
+              New Production Order
+            </Button>
+            <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10 gap-2 h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest">
+              <ShoppingCart className="w-3.5 h-3.5" />
+              New Sales Order
+            </Button>
+            <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10 gap-2 h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest">
+              <ArrowLeftRight className="w-3.5 h-3.5" />
+              Inventory Transfer
+            </Button>
+          </div>
+          <Button className="bg-primary hover:bg-primary/90 text-white gap-2 h-9 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest ml-4">
+            <BarChart3 className="w-3.5 h-3.5" />
+            View Reports
+          </Button>
         </div>
-        <div className="flex gap-1">
-          <Button variant="ghost" className="h-10 rounded-lg text-[9px] font-bold uppercase tracking-widest hover:bg-white/10 gap-2">
-            <FileText className="w-3.5 h-3.5" />
-            New Purchase Order
-          </Button>
-          <Button variant="ghost" className="h-10 rounded-lg text-[9px] font-bold uppercase tracking-widest hover:bg-white/10 gap-2">
-            <Hammer className="w-3.5 h-3.5" />
-            New Production Order
-          </Button>
-          <Button variant="ghost" className="h-10 rounded-lg text-[9px] font-bold uppercase tracking-widest hover:bg-white/10 gap-2">
-            <ShoppingCart className="w-3.5 h-3.5" />
-            New Sales Order
-          </Button>
-          <Button variant="ghost" className="h-10 rounded-lg text-[9px] font-bold uppercase tracking-widest hover:bg-white/10 gap-2">
-            <Settings className="w-3.5 h-3.5" />
-            Stock Adjustment
-          </Button>
-          <Button variant="ghost" className="h-10 rounded-lg text-[9px] font-bold uppercase tracking-widest hover:bg-white/10 gap-2">
-            <ArrowLeftRight className="w-3.5 h-3.5" />
-            Inventory Transfer
-          </Button>
-        </div>
-        <div className="h-6 w-px bg-white/10 mx-4" />
-        <Button className="bg-orange-500 hover:bg-orange-600 h-10 rounded-lg px-6 gap-2 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-orange-500/20">
-          <BarChart3 className="w-4 h-4" />
-          View Reports
-        </Button>
       </div>
     </div>
   );
 }
 
-function Zap(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 14.71 13.29 4.1a1 1 0 0 1 1.54 1.28L10.29 12h8.71a1 1 0 0 1 .83 1.56L10.71 23.9a1 1 0 0 1-1.54-1.28L13.71 16H5a1 1 0 0 1-.83-1.56Z" />
-    </svg>
-  );
-}
-
-function FileText(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-      <path d="M10 9H8" />
-      <path d="M16 13H8" />
-      <path d="M16 17H8" />
-    </svg>
-  );
-}
+const Zap = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14.5 14 3l-2 9h8L10 21l2-9H4Z"/></svg>
+);
