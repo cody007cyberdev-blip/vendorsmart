@@ -1,90 +1,82 @@
-# 🛡️ VendorSmart Professional Enterprise
+# 🚀 VendorSmart Professional Enterprise v3.0
 
-> **A solução definitiva para gestão de inventário, produção e conformidade fiscal (SAF-T PT).**
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-orange.svg)](LICENSE)
+[![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-blue.svg)](package.json)
+[![Localization: PT/CV](https://img.shields.io/badge/Localization-Portugal%20%7C%20Cabo%20Verde-green.svg)](#localização-e-conformidade)
 
-[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](package.json)
-[![SAF-T PT](https://img.shields.io/badge/SAF--T%20PT-Compliant-green.svg)](server/services/saft.service.ts)
-[![Enterprise UI](https://img.shields.io/badge/UI-Professional-orange.svg)](src/styles.css)
-
-![VendorSmart Dashboard](./src/assets/ui-screenshot-dashboard-v2.png)
-
-## 🚀 Visão Geral
-
-O **VendorSmart Professional** é um sistema ERP de gestão de inventário de alto desempenho, desenhado para empresas que exigem precisão, rastreabilidade e conformidade legal. Mais do que um simples gestor de stock, o VendorSmart oferece um ecossistema completo para gerir o ciclo de vida dos produtos, desde a produção até à venda final.
-
-### ✨ Diferenciais Profissionais
-
-- 🇵🇹 **Conformidade SAF-T PT**: Geração nativa do ficheiro de auditoria fiscal para Portugal.
-- 🔬 **Rastreabilidade por Lotes**: Gestão avançada de validades e números de série (RF06).
-- 🏗️ **Bill of Materials (BOM)**: Suporte completo para artigos compostos e controlo de produção (RF04).
-- 📊 **Gestão Financeira**: Contas-correntes de clientes e fornecedores com emissão de documentos (RF02/03).
-- ⚖️ **Motor de Impostos**: Configuração flexível de taxas (IVA) por país e categoria (RF10).
-- 🏢 **Multi-Localização**: Gestão de armazéns e transferências entre áreas especializadas.
+O **VendorSmart Professional Enterprise** é uma solução ERP de próxima geração, desenhada para empresas que exigem alto desempenho, conformidade fiscal rigorosa e uma experiência de utilizador de elite. Transformamos a gestão de inventário básica numa plataforma robusta que cobre todo o ciclo operacional, da produção ao financeiro.
 
 ---
 
-## 📸 Interface Profissional
+## 💎 Experiência de Utilizador de Elite
 
-### Dashboard de Inteligência
-![Dashboard](./src/assets/ui-screenshot-dashboard-v2.png)
-*Visão consolidada de métricas, anomalias de stock e tendências de mercado.*
+A nossa nova interface foi redesenhada do zero para oferecer clareza, velocidade e elegância. Com um tema **Enterprise Clean** (Preto, Laranja e Branco), o VendorSmart proporciona um ambiente de trabalho produtivo e moderno.
 
-### Gestão de Produção (BOM)
-![Produção](./src/assets/mockup-catalog.png)
-*Crie produtos complexos e controle o consumo de matérias-primas automaticamente.*
+![Enterprise Dashboard](public/screenshots/enterprise-dashboard.png)
+*Dashboard em tempo real com métricas de inventário, financeiras e cronogramas de produção.*
 
-### Auditoria e Conformidade
-![Conformidade](./src/assets/mockup-analytics.png)
-*Exporte o SAF-T PT e relatórios contabilísticos com um clique.*
+### ✨ Destaques da Interface:
+- **Sidebar Inteligente**: Sistema de navegação recolhível para maximizar o seu espaço de trabalho.
+- **Header Dual-Layer**: Acesso rápido a perfis de utilizador (Leonardo/João), notificações e pesquisa global com atalhos de teclado (⌘K).
+- **Playground Interativo**: Visualize transformações de dados e documentos em tempo real.
+
+---
+
+## 🏗️ Funcionalidades Core Enterprise
+
+### 📦 Gestão de Inventário e Produção (BOM)
+Controlo total sobre o seu catálogo. Defina fórmulas de produção (Bill of Materials), gira lotes e datas de validade, e automatize o planeamento de reabastecimento.
+
+### 🏛️ Localização e Conformidade Fiscal
+O VendorSmart está totalmente adaptado para os mercados de **Portugal** e **Cabo Verde**.
+- **SAF-T PT**: Gerador de ficheiro SAF-T (PT) integrado para conformidade total com a Autoridade Tributária.
+- **NIF e Moedas**: Suporte nativo para NIF (PT/CV) e moedas (EUR/CVE).
+- **Regimes de IVA**: Configuração flexível de taxas e regimes de isenção.
+
+![Fiscal SAF-T PT](public/screenshots/fiscal-saft.png)
+*Módulo de conformidade fiscal com validação e exportação de SAF-T PT.*
+
+### 👥 Gestão de Capital Humano e Clientes
+Tabelas avançadas para gestão de funcionários e clientes, com rastreio de performance, limites de crédito e saldos de conta-corrente.
+
+![Employee Management](public/screenshots/employee-management.png)
+*Interface de gestão de funcionários com departamentos e status em tempo real.*
 
 ---
 
 ## ⚙️ Parâmetros Avançados de Exportação
 
-O VendorSmart Professional introduz um motor de relatórios de nível empresarial:
-
-- **Metadados de Documento**: Título, Autor e Empresa personalizados em cada exportação.
-- **Configuração de Margens**: Controle milimétrico para faturas e guias de remessa.
-- **Qualidade Industrial**: Exportação de relatórios em PDF de alta resolução (300 DPI) para impressão.
-- **Formatos Versáteis**: Suporte para XML (SAF-T), CSV, XLSX e JSON.
+O nosso motor de exportação profissional permite gerar documentos prontos para o mercado:
+- **Metadados Personalizados**: Título, Autor e Empresa integrados nos documentos.
+- **Controlo de Margens**: Ajuste milimétrico para impressão perfeita.
+- **Alta Fidelidade**: Exportações em 300 DPI para máxima qualidade.
 
 ---
 
-## 🏗️ Arquitetura Técnica
+## 🚀 Começar Agora
 
-- **Frontend**: React 19 + Vite + Tailwind CSS (Design System Profissional).
-- **Backend**: Node.js Enterprise + Express + Drizzle ORM.
-- **Base de Dados**: SQLite (Desenvolvimento) / SQL Server Ready.
-- **Segurança**: RBAC (Role-Based Access Control) com 5 níveis de privilégios.
+### Pré-requisitos:
+- Node.js v18+
+- SQLite / PostgreSQL
+- Ligação à Internet para validações fiscais
 
----
-
-## ⚡ Instalação Rápida
-
+### Instalação:
 ```bash
 # Clonar o repositório
 git clone https://github.com/cody007cyberdev-blip/vendorsmart.git
 
 # Instalar dependências
-npm install
+pnpm install
 
-# Iniciar ambiente de desenvolvimento
-npm run dev
+# Iniciar em modo de produção
+pnpm run build && pnpm run start
 ```
 
 ---
 
-## 📚 Requisitos Funcionais Implementados (v3.0)
+## 📞 Contacto e Suporte
 
-| ID | Requisito | Descrição |
-|---|---|---|
-| **RF04** | Controlo de Produção | Gestão de artigos compostos (BOM). |
-| **RF06** | Rastreabilidade | Controlo de lotes e datas de validade. |
-| **RF10** | Impostos | Discriminação de IVA em todos os movimentos. |
-| **RF11** | SAF-T PT | Geração de ficheiro XML para Autoridade Tributária. |
-| **RF02** | Financeiro | Gestão de contas-correntes e saldos. |
+O VendorSmart Professional Enterprise é uma solução de elite para empresas de elite. Para licenciamento ou suporte personalizado, entre em contacto com a nossa equipa de vendas.
 
 ---
-
-**Desenvolvido para profissionais que não aceitam menos que a excelência.**
-*VendorSmart — Smart Inventory, Smarter Business.*
+*© 2026 VendorSmart, Lda. Todos os direitos reservados.*
