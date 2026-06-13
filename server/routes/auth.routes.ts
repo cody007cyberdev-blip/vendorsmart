@@ -244,3 +244,91 @@ authRouter.post("/2fa/disable", requireAuth, async (req, res) => {
     .where(eq(schema.users.id, req.user!.uid));
   return res.json({ success: true, twoFactorEnabled: false });
 });
+
+// ─── Registo de Empresa (novo fluxo para onboarding) ────
+const registerCompanySchema = z.object({
+  companyName: z.string().min(2),
+  companyLegalName: z.string().min(2),
+  nif: z.string().min(5),
+  country: z.enum(["PT", "CV"]).optional(),
+  currency: z.enum(["EUR", "CVE"]).optional(),
+  adminName: z.string().min(2),
+  adminEmail: z.string().email(),
+  adminPassword: z.string().min(8),
+  adminPasswordConfirm: z.string().min(8),
+});
+
+authRouter.post("/register-company", async (req, res) => {
+  const parsed = registerCompanySchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: "Dados invalidos", details: parsed.error.flatten() });
+  }
+
+  const { companyName, companyLegalName, nif, country, currency, adminName, adminEmail, adminPassword, adminPasswordConfirm } = parsed.data;
+
+  if (adminPassword !== adminPasswordConfirm) {
+    return res.status(400).json({ error: "As senhas nao coincidem" });
+  }
+
+  const existing = await db
+    .select()
+    .from(schema.users)
+    .where(eq(schema.users.email, adminEmail.toLowerCase()))
+    .limit(1);
+  if (existing.length > 0) {
+    return res.status(409).json({ error: "Email ja registado" });
+  }
+
+  try {
+    const companyId = randomUUID();
+    await db.insert(schema.companies).values({
+      id: companyId,
+      name: companyName,
+      legalName: companyLegalName,
+      nif,
+      email: adminEmail,
+      country: (country || "PT") as "PT" | "CV",
+      currency: (currency || "EUR") as "EUR" | "CVE",
+      address: "",
+      city: "",
+      createdAt: new Date().toISOString(),
+    });
+
+    const adminId = randomUUID();
+    const passwordHash = await hashPassword(adminPassword);
+
+    await db.insert(schema.users).values({
+      id: adminId,
+      name: adminName,
+      email: adminEmail.toLowerCase(),
+      passwordHash,
+      phone: "",
+      role: "admin",
+      companyId,
+      isActive: true,
+      twoFactorEnabled: false,
+    });
+
+    await db.insert(schema.employees).values({
+      id: randomUUID(),
+      userId: adminId,
+      employeeNumber: `EMP-${Date.now()}`,
+      department: "Administracao",
+      position: "Administrador",
+      status: "active",
+      createdAt: new Date().toISOString(),
+    });
+
+    const token = signJwt({ uid: adminId, role: "admin", email: adminEmail });
+
+    return res.status(201).json({
+      success: true,
+      message: "Empresa e administrador criados com sucesso",
+      token,
+      user: { id: adminId, name: adminName, email: adminEmail, role: "admin", companyId },
+    });
+  } catch (error) {
+    console.error("[auth/register-company]", error);
+    return res.status(500).json({ error: "Erro ao registar empresa" });
+  }
+});
